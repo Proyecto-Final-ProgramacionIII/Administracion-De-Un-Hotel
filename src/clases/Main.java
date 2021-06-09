@@ -5,10 +5,19 @@
  */
 package clases;
 
+import hotel.P1_Portada;
+
 /**
  *
  * @author Cesar
  */
 public class Main {
+     MySqlConn objConn = new MySqlConn();
+    public Main(){
+        new P1_Portada().setVisible(true);
+    }
+    public static void main(String[] args) {
+        new Main();
+    }
   
 }

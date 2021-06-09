@@ -6,6 +6,7 @@
 package hotel;
 
 import clases.MySqlConn;
+import java.awt.Color;
 import java.awt.Image;
 import java.sql.SQLException;
 import javax.swing.ImageIcon;
@@ -34,11 +35,19 @@ public class P3_Login extends javax.swing.JFrame {
         imagen();
     }
     public void imagen(){
-        ImageIcon icono = new ImageIcon("src/imagenes/uaalogo.png");
+        ImageIcon icono = new ImageIcon("src/imagenes/login.png");
         JLabel imagen = new JLabel();
-        imagen.setBounds(20,20,80,50);
+        ImageIcon icono1 = new ImageIcon("src/imagenes/logo3.png");
+        JLabel imagen1 = new JLabel();
+        
+        imagen.setBounds(0,0,670,383);
         imagen.setIcon(new ImageIcon(icono.getImage().getScaledInstance(imagen.getWidth(),imagen.getHeight(),Image.SCALE_SMOOTH) ));
-        jPanelLogo.add(imagen);
+       
+        imagen1.setBounds(0,0,130,80);
+        imagen1.setIcon(new ImageIcon(icono1.getImage().getScaledInstance(imagen1.getWidth(),imagen1.getHeight(),Image.SCALE_SMOOTH) ));
+               
+        jPanelLogo.add(imagen1);
+        jPanel1.add(imagen);
     }
 
     /**
@@ -50,6 +59,7 @@ public class P3_Login extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jFormattedTextField1 = new javax.swing.JFormattedTextField();
         jPanel1 = new javax.swing.JPanel();
         jPanelLogo = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -60,18 +70,21 @@ public class P3_Login extends javax.swing.JFrame {
         jTextFieldCuenta = new javax.swing.JTextField();
         jPasswordFieldLogin = new javax.swing.JPasswordField();
 
+        jFormattedTextField1.setText("jFormattedTextField1");
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Acceso de Usuario");
 
         jPanel1.setBackground(new java.awt.Color(102, 0, 51));
 
         jPanelLogo.setOpaque(false);
-        jPanelLogo.setPreferredSize(new java.awt.Dimension(112, 80));
+        jPanelLogo.setPreferredSize(new java.awt.Dimension(123, 80));
 
         javax.swing.GroupLayout jPanelLogoLayout = new javax.swing.GroupLayout(jPanelLogo);
         jPanelLogo.setLayout(jPanelLogoLayout);
         jPanelLogoLayout.setHorizontalGroup(
             jPanelLogoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 112, Short.MAX_VALUE)
+            .addGap(0, 123, Short.MAX_VALUE)
         );
         jPanelLogoLayout.setVerticalGroup(
             jPanelLogoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -79,14 +92,22 @@ public class P3_Login extends javax.swing.JFrame {
         );
 
         jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(0, 204, 0));
         jLabel1.setText("Cuenta: ");
+        jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jLabel1MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jLabel1MouseExited(evt);
+            }
+        });
 
-        jButton1.setBackground(new java.awt.Color(255, 255, 51));
+        jButton1.setBackground(new java.awt.Color(102, 102, 102));
         jButton1.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
         jButton1.setText("Regresar");
         jButton1.setBorderPainted(false);
         jButton1.setContentAreaFilled(false);
+        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 jButton1MouseEntered(evt);
@@ -101,11 +122,12 @@ public class P3_Login extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setBackground(new java.awt.Color(255, 255, 51));
+        jButton2.setBackground(new java.awt.Color(102, 102, 102));
         jButton2.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
         jButton2.setText("Ingresar");
         jButton2.setBorderPainted(false);
         jButton2.setContentAreaFilled(false);
+        jButton2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton2.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseMoved(java.awt.event.MouseEvent evt) {
                 jButton2MouseMoved(evt);
@@ -126,12 +148,19 @@ public class P3_Login extends javax.swing.JFrame {
         });
 
         jLabel2.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(0, 204, 0));
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Acceso a Usuario");
 
         jLabel3.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(0, 204, 0));
         jLabel3.setText("Contraseña:");
+        jLabel3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jLabel3MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jLabel3MouseExited(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -263,6 +292,26 @@ public class P3_Login extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    private void jLabel1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseEntered
+        // TODO add your handling code here:
+        jLabel1.setForeground(Color.WHITE);
+    }//GEN-LAST:event_jLabel1MouseEntered
+
+    private void jLabel3MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseEntered
+        // TODO add your handling code here:
+        jLabel3.setForeground(Color.WHITE);
+    }//GEN-LAST:event_jLabel3MouseEntered
+
+    private void jLabel1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseExited
+        // TODO add your handling code here:
+        jLabel1.setForeground(Color.BLACK);
+    }//GEN-LAST:event_jLabel1MouseExited
+
+    private void jLabel3MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseExited
+        // TODO add your handling code here:
+        jLabel3.setForeground(Color.BLACK);
+    }//GEN-LAST:event_jLabel3MouseExited
+
     /**
      * @param args the command line arguments
      */
@@ -301,6 +350,7 @@ public class P3_Login extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JFormattedTextField jFormattedTextField1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

@@ -66,6 +66,17 @@ public class P1_Portada extends javax.swing.JFrame {
         jButtonSistema.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
         jButtonSistema.setForeground(new java.awt.Color(255, 102, 51));
         jButtonSistema.setText("Sistema");
+        jButtonSistema.setBorderPainted(false);
+        jButtonSistema.setContentAreaFilled(false);
+        jButtonSistema.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButtonSistema.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jButtonSistemaMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jButtonSistemaMouseExited(evt);
+            }
+        });
         jButtonSistema.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonSistemaActionPerformed(evt);
@@ -181,13 +192,12 @@ public class P1_Portada extends javax.swing.JFrame {
                 .addGroup(jPanelFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanelLogo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addGroup(jPanelFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanelFondoLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jButtonSistema))
-                    .addGroup(jPanelFondoLayout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(38, 38, 38))
         );
 
@@ -210,6 +220,16 @@ public class P1_Portada extends javax.swing.JFrame {
         this.dispose();
         new P2_Sistema().setVisible(true);
     }//GEN-LAST:event_jButtonSistemaActionPerformed
+
+    private void jButtonSistemaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonSistemaMouseEntered
+        // TODO add your handling code here:
+        jButtonSistema.setContentAreaFilled(true);
+    }//GEN-LAST:event_jButtonSistemaMouseEntered
+
+    private void jButtonSistemaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonSistemaMouseExited
+        // TODO add your handling code here:
+        jButtonSistema.setContentAreaFilled(false);
+    }//GEN-LAST:event_jButtonSistemaMouseExited
 
     /**
      * @param args the command line arguments
