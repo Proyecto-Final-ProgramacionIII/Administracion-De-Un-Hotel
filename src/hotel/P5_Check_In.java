@@ -10,6 +10,7 @@ import java.awt.Color;
 import java.awt.Image;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -360,8 +361,12 @@ public class P5_Check_In extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
-        this.dispose();
-        new P5_Habitaciones().setVisible(true);
+        int op = JOptionPane.showConfirmDialog(null, "Si cambias de habitacion los datos registrados se perderan","¡Precaucion!", JOptionPane.YES_NO_CANCEL_OPTION,JOptionPane.WARNING_MESSAGE);
+        if(op == 0){
+            this.dispose();
+            new P5_Habitaciones().setVisible(true);
+        }
+        
     }//GEN-LAST:event_jButton3ActionPerformed
 
     /**

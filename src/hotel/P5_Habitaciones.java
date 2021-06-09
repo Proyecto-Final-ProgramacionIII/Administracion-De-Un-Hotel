@@ -12,7 +12,6 @@ import java.awt.Image;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import static javax.swing.JOptionPane.WARNING_MESSAGE;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -27,7 +26,7 @@ public class P5_Habitaciones extends javax.swing.JFrame {
     MySqlConn conn = new MySqlConn();
     
     private Hab dato;
-    int tipo = 0;
+    int tipo = 0, piso = 0;
     
     public P5_Habitaciones(MySqlConn conn){
         this.conn = conn;
@@ -87,6 +86,7 @@ public class P5_Habitaciones extends javax.swing.JFrame {
         jButton4 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Habitaciones Disponibles");
         setPreferredSize(new java.awt.Dimension(710, 375));
 
         jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
@@ -280,7 +280,7 @@ public class P5_Habitaciones extends javax.swing.JFrame {
                             .addComponent(jTextFieldHab, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addComponent(jButton4)
-                        .addGap(0, 196, Short.MAX_VALUE)))
+                        .addGap(0, 184, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
@@ -314,6 +314,7 @@ public class P5_Habitaciones extends javax.swing.JFrame {
         // TODO add your handling code here:
        String query = null;
         if(this.jRadioButtonP.isSelected()){//piso 1
+            piso = 1;
             this.eliminar();
             if(this.jRadioButtonS.isSelected()){//piso 1 sencillo
                 //Consulta el tipo de habitacion, el piso y la disponibilidad
@@ -330,6 +331,9 @@ public class P5_Habitaciones extends javax.swing.JFrame {
                 query = "select * from habitaciones where Tipo = "+"'"+3+"'"+" and "+"Piso = "+"'"
                         +1+"'"+" and "+"Disponibilidad = "+"'"+1+"'";
                 tipo = 3;
+            }
+            if(tipo == 0){//solo se selecciono el piso
+                 query = "select * from habitaciones where Piso = "+"'"+1+"'"+" and "+"Disponibilidad = "+"'"+1+"'";
             }
             this.conn.Consult(query);
             int n = 0;
@@ -360,8 +364,9 @@ public class P5_Habitaciones extends javax.swing.JFrame {
         }
         else
             JOptionPane.showMessageDialog(this, "No hay datos...");
-        }
+        }//fin if piso1
         if(this.jRadioButtonSeg.isSelected()){//piso 2
+            piso = 1;
             this.eliminar();
             if(this.jRadioButtonS.isSelected()){//piso 2 sencillo
                 query = "select * from habitaciones where Tipo = "+"'"+1+"'"+" and "+"Piso = "+"'"
@@ -377,6 +382,9 @@ public class P5_Habitaciones extends javax.swing.JFrame {
                 query = "select * from habitaciones where Tipo = "+"'"+3+"'"+" and "+"Piso = "+"'"
                         +2+"'"+" and "+"Disponibilidad = "+"'"+1+"'";
                 tipo = 3;
+            }
+            if(tipo == 0){//solo se selecciono el piso
+                 query = "select * from habitaciones where Piso = "+"'"+2+"'"+" and "+"Disponibilidad = "+"'"+1+"'";
             }
             this.conn.Consult(query);
             int n = 0;
@@ -408,6 +416,51 @@ public class P5_Habitaciones extends javax.swing.JFrame {
         else
             JOptionPane.showMessageDialog(this, "No hay datos...");
         }
+        if(piso == 0){//sin selecion de piso
+            this.eliminar();
+            if(this.jRadioButtonS.isSelected()){//sencillo
+                query = "select * from habitaciones where Tipo = "+"'"+1+"'"+" and "+"Disponibilidad = "+"'"+1+"'";
+                 tipo = 1;
+            }
+            if(this.jRadioButtonD.isSelected()){//doble
+                query = "select * from habitaciones where Tipo = "+"'"+2+"'"+" and "+"Disponibilidad = "+"'"+1+"'";
+                 tipo = 2;
+            }
+            if(this.jRadioButtonT.isSelected()){//triple
+                query = "select * from habitaciones where Tipo = "+"'"+3+" and "+"Disponibilidad = "+"'"+1+"'";
+                tipo = 3;
+            }
+            this.conn.Consult(query);
+            int n = 0;
+            try {
+              this.conn.rs.last();
+              n = this.conn.rs.getRow();
+              this.conn.rs.first();
+            } catch (Exception e){
+                System.out.println("Error#1 ...");
+            }
+            if ( n != 0) {
+            System.out.println("n "+n);
+            Object datos [][] = new Object[n][3];
+            for (int i = 0; i < n ; i++) {
+                try {
+                    datos[i][0] = this.conn.rs.getInt(1);
+                    datos[i][1] = this.conn.rs.getString(2);
+                    datos[i][2] = this.conn.rs.getString(3);
+                    this.conn.rs.next();
+                } catch (Exception e){
+                    System.out.println("Error#2 ...");
+                }
+                
+            }
+            String columnas[] = {"Numero de habitacion","Piso","Tipo"};
+            jTableHab.setModel(new DefaultTableModel(datos,columnas));
+            System.out.println("tabla lista");
+            }
+            else
+                JOptionPane.showMessageDialog(this, "No hay datos...");
+            
+        }
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton4MouseEntered
@@ -429,7 +482,7 @@ public class P5_Habitaciones extends javax.swing.JFrame {
         try {
             num = Integer.parseInt(this.jTextFieldHab.getText().trim());
         } catch(NumberFormatException ex){
-            JOptionPane.showMessageDialog(null, "¡No se selecciono una habitacion!", "Sin Habitacion :(", WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null, "¡No se selecciono una habitacion!", "Sin Habitacion :(", JOptionPane.WARNING_MESSAGE);
             System.out.println("No se selecciono alguna habitacion");
             this.dato = new Hab(0,"");
         }
