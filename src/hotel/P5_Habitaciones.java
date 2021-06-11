@@ -8,10 +8,12 @@ package hotel;
 import clases.Hab;
 import clases.MySqlConn;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Image;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -27,14 +29,23 @@ public class P5_Habitaciones extends javax.swing.JFrame {
     
     private Hab dato;
     int tipo = 0, piso = 0;
+   
+    
     
     public P5_Habitaciones(MySqlConn conn){
         this.conn = conn;
         initComponents();
+        
     }
     
     public P5_Habitaciones() {
         initComponents();
+        this.jScrollPane1.setOpaque(false);
+        this.jScrollPane1.getViewport().setOpaque(false);
+        this.jTableHab.setOpaque(false);
+        ((DefaultTableCellRenderer)this.jTableHab.getDefaultRenderer(Object.class)).setOpaque(false);
+        jTableHab.getTableHeader().setFont(new java.awt.Font("Time New Roman", Font.BOLD, 12));
+        jTableHab.getTableHeader().repaint();
         imagen();
     }
     public void imagen(){
@@ -43,7 +54,7 @@ public class P5_Habitaciones extends javax.swing.JFrame {
         //ImageIcon icono1 = new ImageIcon("src/imagenes/logo3.png");
        // JLabel imagen1 = new JLabel();
         
-        imagen.setBounds(0,0,715,385);
+        imagen.setBounds(0,0,715,415);
         imagen.setIcon(new ImageIcon(icono.getImage().getScaledInstance(imagen.getWidth(),imagen.getHeight(),Image.SCALE_SMOOTH) ));
        
         //imagen1.setBounds(0,0,130,80);
@@ -84,10 +95,12 @@ public class P5_Habitaciones extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         jTextFieldHab = new javax.swing.JTextField();
         jButton4 = new javax.swing.JButton();
+        jLabel10 = new javax.swing.JLabel();
+        jTextFielPiso = new javax.swing.JTextField();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Habitaciones Disponibles");
-        setPreferredSize(new java.awt.Dimension(710, 375));
 
         jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
         jLabel1.setText("Habitaciones");
@@ -144,6 +157,8 @@ public class P5_Habitaciones extends javax.swing.JFrame {
             }
         });
 
+        jTableHab.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jTableHab.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
         jTableHab.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -154,6 +169,14 @@ public class P5_Habitaciones extends javax.swing.JFrame {
         ));
         jTableHab.setGridColor(java.awt.SystemColor.control);
         jTableHab.setOpaque(false);
+        jTableHab.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jTableHabMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jTableHabMouseExited(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTableHab);
 
         jLabel5.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
@@ -192,6 +215,29 @@ public class P5_Habitaciones extends javax.swing.JFrame {
             }
         });
 
+        jLabel10.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
+        jLabel10.setText("Piso");
+
+        jButton2.setBackground(new java.awt.Color(255, 255, 255));
+        jButton2.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
+        jButton2.setForeground(new java.awt.Color(255, 255, 255));
+        jButton2.setText("Regresar");
+        jButton2.setContentAreaFilled(false);
+        jButton2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jButton2MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jButton2MouseExited(evt);
+            }
+        });
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanelFondoLayout = new javax.swing.GroupLayout(jPanelFondo);
         jPanelFondo.setLayout(jPanelFondoLayout);
         jPanelFondoLayout.setHorizontalGroup(
@@ -204,7 +250,6 @@ public class P5_Habitaciones extends javax.swing.JFrame {
                     .addGroup(jPanelFondoLayout.createSequentialGroup()
                         .addGap(50, 50, 50)
                         .addGroup(jPanelFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanelFondoLayout.createSequentialGroup()
                                 .addComponent(jLabel4)
                                 .addGap(35, 35, 35)
@@ -220,7 +265,9 @@ public class P5_Habitaciones extends javax.swing.JFrame {
                                 .addGap(18, 18, 18)
                                 .addComponent(jRadioButtonD)
                                 .addGap(18, 18, 18)
-                                .addComponent(jRadioButtonT)))))
+                                .addComponent(jRadioButtonT))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanelFondoLayout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -234,12 +281,18 @@ public class P5_Habitaciones extends javax.swing.JFrame {
                         .addGroup(jPanelFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanelFondoLayout.createSequentialGroup()
                                 .addGap(18, 18, 18)
-                                .addComponent(jLabel9)
+                                .addGroup(jPanelFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel9)
+                                    .addComponent(jLabel10))
                                 .addGap(18, 18, 18)
-                                .addComponent(jTextFieldHab, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(jPanelFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jTextFielPiso, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jTextFieldHab, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(jPanelFondoLayout.createSequentialGroup()
-                                .addGap(49, 49, 49)
-                                .addComponent(jButton4)))
+                                .addGap(52, 52, 52)
+                                .addGroup(jPanelFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jButton4))))
                         .addContainerGap(34, Short.MAX_VALUE))))
         );
         jPanelFondoLayout.setVerticalGroup(
@@ -278,9 +331,15 @@ public class P5_Habitaciones extends javax.swing.JFrame {
                         .addGroup(jPanelFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel9)
                             .addComponent(jTextFieldHab, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanelFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel10)
+                            .addComponent(jTextFielPiso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(21, 21, 21)
                         .addComponent(jButton4)
-                        .addGap(0, 184, Short.MAX_VALUE)))
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton2)
+                        .addGap(0, 104, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
@@ -292,7 +351,7 @@ public class P5_Habitaciones extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanelFondo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanelFondo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 412, Short.MAX_VALUE)
         );
 
         pack();
@@ -336,7 +395,9 @@ public class P5_Habitaciones extends javax.swing.JFrame {
                  query = "select * from habitaciones where Piso = "+"'"+1+"'"+" and "+"Disponibilidad = "+"'"+1+"'";
             }
             this.conn.Consult(query);
-            int n = 0;
+            int n = 0;                 
+           
+
             try {
               this.conn.rs.last();
               n = this.conn.rs.getRow();
@@ -345,7 +406,7 @@ public class P5_Habitaciones extends javax.swing.JFrame {
                 System.out.println("Error#1 ...");
             }
             if ( n != 0) {
-            System.out.println("n "+n);
+            System.out.println("Total de habitaciones disponibles: "+n);
             Object datos [][] = new Object[n][3];
             for (int i = 0; i < n ; i++) {
                 try {
@@ -358,12 +419,12 @@ public class P5_Habitaciones extends javax.swing.JFrame {
                 }
                 
             }
-            String columnas[] = {"Piso","Tipo","Numero de habitacion"};
+            String columnas[] = {"Numero de habitacion","Piso","Tipo"};
             jTableHab.setModel(new DefaultTableModel(datos,columnas));
-            System.out.println("tabla lista");
+            //System.out.println("tabla lista");
         }
         else
-            JOptionPane.showMessageDialog(this, "No hay datos...");
+            JOptionPane.showMessageDialog(this, "No hay habitaciones disponibles de este tipo...");
         }//fin if piso1
         if(this.jRadioButtonSeg.isSelected()){//piso 2
             piso = 1;
@@ -396,7 +457,7 @@ public class P5_Habitaciones extends javax.swing.JFrame {
                 System.out.println("Error#1 ...");
             }
             if ( n != 0) {
-            System.out.println("n "+n);
+            System.out.println("Total de habitaciones disponibles: "+n);
             Object datos [][] = new Object[n][3];
             for (int i = 0; i < n ; i++) {
                 try {
@@ -411,10 +472,10 @@ public class P5_Habitaciones extends javax.swing.JFrame {
             }
             String columnas[] = {"Numero de habitacion","Piso","Tipo"};
             jTableHab.setModel(new DefaultTableModel(datos,columnas));
-            System.out.println("tabla lista");
+            //System.out.println("tabla lista");
         }
         else
-            JOptionPane.showMessageDialog(this, "No hay datos...");
+            JOptionPane.showMessageDialog(this, "No hay habitaciones disponibles de este tipo...");
         }
         if(piso == 0){//sin selecion de piso
             this.eliminar();
@@ -427,7 +488,7 @@ public class P5_Habitaciones extends javax.swing.JFrame {
                  tipo = 2;
             }
             if(this.jRadioButtonT.isSelected()){//triple
-                query = "select * from habitaciones where Tipo = "+"'"+3+" and "+"Disponibilidad = "+"'"+1+"'";
+                query = "select * from habitaciones where Tipo = "+"'"+3+"'"+" and "+"Disponibilidad = "+"'"+1+"'";
                 tipo = 3;
             }
             this.conn.Consult(query);
@@ -440,7 +501,7 @@ public class P5_Habitaciones extends javax.swing.JFrame {
                 System.out.println("Error#1 ...");
             }
             if ( n != 0) {
-            System.out.println("n "+n);
+            System.out.println("Total de habitaciones disponibles: "+n);
             Object datos [][] = new Object[n][3];
             for (int i = 0; i < n ; i++) {
                 try {
@@ -455,12 +516,13 @@ public class P5_Habitaciones extends javax.swing.JFrame {
             }
             String columnas[] = {"Numero de habitacion","Piso","Tipo"};
             jTableHab.setModel(new DefaultTableModel(datos,columnas));
-            System.out.println("tabla lista");
+            //System.out.println("tabla lista");
             }
             else
-                JOptionPane.showMessageDialog(this, "No hay datos...");
+                JOptionPane.showMessageDialog(this, "No hay habitaciones disponibles de este tipo...");
             
         }
+        
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton4MouseEntered
@@ -479,30 +541,69 @@ public class P5_Habitaciones extends javax.swing.JFrame {
         // TODO add your handling code here:
         //int num = Integer.parseInt(this.jTextFieldHab.getText().trim());
         int num = 0;
+        int piso = Integer.parseInt(this.jTextFielPiso.getText().trim());
         try {
             num = Integer.parseInt(this.jTextFieldHab.getText().trim());
         } catch(NumberFormatException ex){
             JOptionPane.showMessageDialog(null, "¡No se selecciono una habitacion!", "Sin Habitacion :(", JOptionPane.WARNING_MESSAGE);
             System.out.println("No se selecciono alguna habitacion");
-            this.dato = new Hab(0,"");
+            this.dato = new Hab(0,"",0,0);
         }
         switch (tipo) {
             case 1:
-                this.dato = new Hab(num,"Sencilla");
+                this.dato = new Hab(num,"Sencilla",piso,1);
                 break;
             case 2:
-                this.dato = new Hab(num,"Doble");
+                this.dato = new Hab(num,"Doble",piso,2);
                 break;
             case 3:
-                this.dato = new Hab(num,"Triple");
+                this.dato = new Hab(num,"Triple",piso,3);
                 break;
             default:
+                
                 break;
         }
         this.dispose();
         new P5_Check_In(this.dato).setVisible(true);
         
     }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseEntered
+        // TODO add your handling code here:
+        jButton2.setContentAreaFilled(true);
+        jButton2.setForeground(Color.BLACK);
+    }//GEN-LAST:event_jButton2MouseEntered
+
+    private void jButton2MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseExited
+        // TODO add your handling code here:
+        jButton2.setContentAreaFilled(false);
+        jButton2.setForeground(Color.WHITE);
+    }//GEN-LAST:event_jButton2MouseExited
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+        new P4_Sistema_Index().setVisible(true);
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jTableHabMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableHabMouseEntered
+        // TODO add your handling code here:
+        this.jTableHab.setForeground(Color.BLACK);
+        this.jScrollPane1.setOpaque(true);
+        this.jScrollPane1.getViewport().setOpaque(true);
+        this.jTableHab.setOpaque(true);
+        ((DefaultTableCellRenderer)this.jTableHab.getDefaultRenderer(Object.class)).setOpaque(true);
+        
+    }//GEN-LAST:event_jTableHabMouseEntered
+
+    private void jTableHabMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableHabMouseExited
+        // TODO add your handling code here:
+        this.jTableHab.setForeground(Color.WHITE);
+        this.jScrollPane1.setOpaque(false);
+        this.jScrollPane1.getViewport().setOpaque(false);
+        this.jTableHab.setOpaque(false);
+        ((DefaultTableCellRenderer)this.jTableHab.getDefaultRenderer(Object.class)).setOpaque(false);
+    }//GEN-LAST:event_jTableHabMouseExited
 
     /**
      * @param args the command line arguments
@@ -542,9 +643,11 @@ public class P5_Habitaciones extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroupTipo;
+    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -560,6 +663,7 @@ public class P5_Habitaciones extends javax.swing.JFrame {
     private javax.swing.JRadioButton jRadioButtonT;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTableHab;
+    private javax.swing.JTextField jTextFielPiso;
     private javax.swing.JTextField jTextFieldHab;
     // End of variables declaration//GEN-END:variables
 

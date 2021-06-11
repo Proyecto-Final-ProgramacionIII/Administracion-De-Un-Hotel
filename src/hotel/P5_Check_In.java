@@ -6,8 +6,12 @@
 package hotel;
 
 import clases.Hab;
+import clases.MySqlConn;
+import clases.Recibo_Check_In;
 import java.awt.Color;
 import java.awt.Image;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -22,11 +26,22 @@ public class P5_Check_In extends javax.swing.JFrame {
      * Creates new form P5_Check_In
      */
     private Hab obj;
+    private Recibo_Check_In recibo;
+    MySqlConn conn = new MySqlConn();
+    
     public P5_Check_In(Hab dato){
         initComponents();
-        this.obj = dato;
-        this.jLabelHabitacion.setText(this.obj.getTipo()+"");
-        this.jLabelNum.setText(this.obj.getNum()+"");
+        //datos del Jframe P5_Habitaciones
+            this.obj = dato;
+            this.jLabelHabitacion.setText(this.obj.getTipo()+"");
+            this.jLabelNum.setText(this.obj.getNum()+"");
+            this.jLabelPiso.setText(this.obj.getPiso()+"");
+            
+        imagen();
+    }
+    public P5_Check_In(MySqlConn conn){
+        this.conn = conn;
+        initComponents();
         imagen();
     }
     public P5_Check_In() {
@@ -78,6 +93,9 @@ public class P5_Check_In extends javax.swing.JFrame {
         jLabelHabitacion = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabelNum = new javax.swing.JLabel();
+        jButton4 = new javax.swing.JButton();
+        jLabel9 = new javax.swing.JLabel();
+        jLabelPiso = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Registro del Cliente");
@@ -197,6 +215,32 @@ public class P5_Check_In extends javax.swing.JFrame {
 
         jLabelNum.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
 
+        jButton4.setBackground(new java.awt.Color(255, 255, 255));
+        jButton4.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
+        jButton4.setForeground(new java.awt.Color(255, 255, 255));
+        jButton4.setText("Registrar Cliente");
+        jButton4.setBorderPainted(false);
+        jButton4.setContentAreaFilled(false);
+        jButton4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jButton4MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jButton4MouseExited(evt);
+            }
+        });
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+
+        jLabel9.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
+        jLabel9.setText("Piso de habitacion");
+
+        jLabelPiso.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
+
         javax.swing.GroupLayout jPanelFondoLayout = new javax.swing.GroupLayout(jPanelFondo);
         jPanelFondo.setLayout(jPanelFondoLayout);
         jPanelFondoLayout.setHorizontalGroup(
@@ -204,27 +248,30 @@ public class P5_Check_In extends javax.swing.JFrame {
             .addGroup(jPanelFondoLayout.createSequentialGroup()
                 .addGap(47, 47, 47)
                 .addGroup(jPanelFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanelFondoLayout.createSequentialGroup()
-                        .addComponent(jLabel5)
-                        .addGap(18, 18, 18)
-                        .addComponent(jSpinnerPersonas, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanelFondoLayout.createSequentialGroup()
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanelFondoLayout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanelFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addComponent(jTextFieldNom, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanelFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addComponent(jButton3, javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(jPanelFondoLayout.createSequentialGroup()
                             .addComponent(jButton1)
-                            .addGap(18, 18, 18)
-                            .addComponent(jButton2))))
-                .addGap(59, 59, 59)
+                            .addGap(27, 27, 27)
+                            .addComponent(jButton2)
+                            .addGap(50, 50, 50)))
+                    .addGroup(jPanelFondoLayout.createSequentialGroup()
+                        .addGroup(jPanelFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanelFondoLayout.createSequentialGroup()
+                                .addComponent(jLabel5)
+                                .addGap(18, 18, 18)
+                                .addComponent(jSpinnerPersonas, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanelFondoLayout.createSequentialGroup()
+                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanelFondoLayout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanelFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel1)
+                                    .addComponent(jTextFieldNom, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(59, 59, 59)))
                 .addGroup(jPanelFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanelFondoLayout.createSequentialGroup()
                         .addGroup(jPanelFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -238,14 +285,23 @@ public class P5_Check_In extends javax.swing.JFrame {
                                 .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(12, 12, 12)
                         .addComponent(jPanelLogo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanelFondoLayout.createSequentialGroup()
-                        .addComponent(jLabel8)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabelNum, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanelFondoLayout.createSequentialGroup()
-                        .addComponent(jLabel7)
-                        .addGap(19, 19, 19)
-                        .addComponent(jLabelHabitacion, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanelFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(jButton4)
+                        .addGroup(jPanelFondoLayout.createSequentialGroup()
+                            .addGroup(jPanelFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(jPanelFondoLayout.createSequentialGroup()
+                                    .addComponent(jLabel9)
+                                    .addGap(32, 32, 32)
+                                    .addComponent(jLabelPiso, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelFondoLayout.createSequentialGroup()
+                                    .addComponent(jLabel8)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jLabelNum, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelFondoLayout.createSequentialGroup()
+                                    .addComponent(jLabel7)
+                                    .addGap(19, 19, 19)
+                                    .addComponent(jLabelHabitacion, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanelFondoLayout.setVerticalGroup(
@@ -276,20 +332,25 @@ public class P5_Check_In extends javax.swing.JFrame {
                     .addGroup(jPanelFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addComponent(jLabelHabitacion, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel7)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanelFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanelFondoLayout.createSequentialGroup()
-                        .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, 22, Short.MAX_VALUE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 68, Short.MAX_VALUE)
-                        .addGroup(jPanelFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton1)
-                            .addComponent(jButton2))
-                        .addGap(33, 33, 33))
+                        .addGap(34, 34, 34)
+                        .addComponent(jButton3))
                     .addGroup(jPanelFondoLayout.createSequentialGroup()
-                        .addComponent(jLabelNum, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanelFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabelNum, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel8))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanelFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel9)
+                            .addComponent(jLabelPiso, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
+                .addGroup(jPanelFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
+                    .addComponent(jButton2)
+                    .addComponent(jButton4))
+                .addGap(54, 54, 54))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -369,6 +430,174 @@ public class P5_Check_In extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jButton3ActionPerformed
 
+    private void jButton4MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton4MouseEntered
+        // TODO add your handling code here:
+        jButton4.setContentAreaFilled(true);
+        jButton4.setForeground(Color.BLACK);
+    }//GEN-LAST:event_jButton4MouseEntered
+
+    private void jButton4MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton4MouseExited
+        // TODO add your handling code here:
+        jButton4.setContentAreaFilled(false);
+        jButton4.setForeground(Color.WHITE);
+    }//GEN-LAST:event_jButton4MouseExited
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+        
+        String Nom, NPer, Tipo, Cd, Tiempo, NumHab, Piso, Ing, Sal, Hospedaje = null;
+        
+        Nom = this.jTextFieldNom.getText().trim();//Nombre
+        NPer = Integer.toString((int)this.jSpinnerPersonas.getValue());//Num personas
+        Cd = (String)this.jComboBox1.getSelectedItem();//Ciudad
+        Tiempo = Integer.toString((int)this.jSpinnerDias.getValue());//Dias
+        Tipo = this.jLabelHabitacion.getText().trim();//tipo Hab
+        NumHab = this.jLabelNum.getText().trim();//num habitacion
+        Piso = this.jLabelPiso.getText().trim();//piso de la habitacion
+        SimpleDateFormat dFormat = new SimpleDateFormat("YYYY-MM-dd");
+        Ing =  dFormat.format(this.jDateChooser1.getDate());//fecha de ingreso
+        Sal = sumarDias();//fecha salida
+        
+        int extra = 0;
+        switch(this.obj.getTy()){
+            case 1:
+                if((int)this.jSpinnerPersonas.getValue() > 1)//tot personas may a 1
+                {
+                    int aux = ((int)this.jSpinnerPersonas.getValue()) - 1;
+                    if(aux > 2){//mas de dos personas
+                        JOptionPane.showMessageDialog(null, "Se supero el maximo de huespedes para esta habitacion", "¡Maximo de huespedes!", JOptionPane.WARNING_MESSAGE);
+                        JOptionPane.showMessageDialog(null, "Solo se agregaran dos personas extras a la habitacion", "¡Maximo de huespedes!", JOptionPane.WARNING_MESSAGE);
+                        Hospedaje = "1600";
+                        NPer = "3";
+                        extra = 2;
+                    }
+                    else{
+                        if(aux == 1){//1 extra
+                            int op = JOptionPane.showConfirmDialog(null, "Incluir una persona extra tiene un cargo de $550, ¿Deseas confirmar el cargo?","¡Cargo Extra!", JOptionPane.YES_NO_OPTION,JOptionPane.WARNING_MESSAGE);
+                            if(op == 0){//habitacion sencilla con uno extra
+                                Hospedaje = "1050";
+                                extra  = 1;
+                            }else{//sencillo y cancela persona extra
+                                Hospedaje = "500";
+                                NPer = Integer.toString(((int)this.jSpinnerPersonas.getValue())-1);//actualizo el dato de tot de personas
+                            }
+                        }else{//2extra
+                            int op = JOptionPane.showConfirmDialog(null, "Incluir dos persona extra tiene un cargo de $1100, ¿Deseas confirmar el cargo?","¡Cargo Extra!", JOptionPane.YES_NO_OPTION,JOptionPane.WARNING_MESSAGE);
+                            if(op == 0){//habitacion sencilla con dos extra
+                                Hospedaje = "1600";
+                                extra  = 2;
+                            }else{//sencillo y cancela persona extra
+                                Hospedaje = "500";
+                                NPer = Integer.toString(((int)this.jSpinnerPersonas.getValue())-2);//actualizo el dato de tot de personas
+                            }
+                        }
+                    }
+                }else{
+                    Hospedaje = "500";
+                }
+                break;
+                case 2:
+                if((int)this.jSpinnerPersonas.getValue() > 2)//tot personas may a 2
+                {
+                    int aux = ((int)this.jSpinnerPersonas.getValue()) - 2;
+                    if(aux > 2){//mas de dos personas
+                        JOptionPane.showMessageDialog(null, "Se supero el maximo de huespedes para esta habitacion", "¡Maximo de huespedes!", JOptionPane.WARNING_MESSAGE);
+                        JOptionPane.showMessageDialog(null, "Solo se agregaran dos personas extras a la habitacion", "¡Maximo de huespedes!", JOptionPane.WARNING_MESSAGE);
+                        Hospedaje = "2050";
+                        NPer = "4";
+                        extra = 2;
+                    }
+                    else{
+                        if(aux == 1){//1 extra
+                            int op = JOptionPane.showConfirmDialog(null, "Incluir una persona extra tiene un cargo de $550, ¿Deseas confirmar el cargo?","¡Cargo Extra!", JOptionPane.YES_NO_OPTION,JOptionPane.WARNING_MESSAGE);
+                            if(op == 0){//habitacion doble con uno extra
+                                Hospedaje = "1500";
+                                extra = 1;
+                            }else{//sencillo y cancela personas extra
+                                Hospedaje = "950";
+                                NPer = Integer.toString(((int)this.jSpinnerPersonas.getValue())-1);//actualizo el dato de tot de personas
+                            }
+                        }else{//2extra
+                            int op = JOptionPane.showConfirmDialog(null, "Incluir dos persona extra tiene un cargo de $1100, ¿Deseas confirmar el cargo?","¡Cargo Extra!", JOptionPane.YES_NO_OPTION,JOptionPane.WARNING_MESSAGE);
+                            if(op == 0){//habitacion doble con dos extra
+                                Hospedaje = "2050";
+                                extra = 2;
+                            }else{//doble y cancela personas extra
+                                Hospedaje = "950";
+                                NPer = Integer.toString(((int)this.jSpinnerPersonas.getValue())-2);//actualizo el dato de tot de personas
+                            }
+                        }
+                    }
+                   
+                }else{
+                    Hospedaje = "950";
+                }
+                break;
+                case 3:
+                if((int)this.jSpinnerPersonas.getValue() > 3)//tot personas may a 3
+                {
+                    int aux = ((int)this.jSpinnerPersonas.getValue()) - 3;
+                    if(aux > 2){//mas de dos personas
+                        JOptionPane.showMessageDialog(null, "Se supero el maximo de huespedes para esta habitacion", "¡Maximo de huespedes!", JOptionPane.WARNING_MESSAGE);
+                        JOptionPane.showMessageDialog(null, "Solo se agregaran dos personas extras a la habitacion", "¡Maximo de huespedes!", JOptionPane.WARNING_MESSAGE);
+                        Hospedaje = "2550";
+                        NPer = "5";
+                        extra = 2;
+                    }
+                    else{
+                        if(aux == 1){//1 extra
+                            int op = JOptionPane.showConfirmDialog(null, "Incluir una persona extra tiene un cargo de $550, ¿Deseas confirmar el cargo?","¡Cargo Extra!", JOptionPane.YES_NO_OPTION,JOptionPane.WARNING_MESSAGE);
+                            if(op == 0){//habitacion triple con uno extra
+                                Hospedaje = "2000";
+                                extra = 1;
+                            }else{//triple y cancela personas extra
+                                Hospedaje = "1450";
+                                NPer = Integer.toString(((int)this.jSpinnerPersonas.getValue())-1);//actualizo el dato de tot de personas
+                            }
+                        }else{//2extra
+                            int op = JOptionPane.showConfirmDialog(null, "Incluir dos persona extra tiene un cargo de $1100, ¿Deseas confirmar el cargo?","¡Cargo Extra!", JOptionPane.YES_NO_OPTION,JOptionPane.WARNING_MESSAGE);
+                            if(op == 0){//habitacion triple con dos extra
+                                Hospedaje = "2550";
+                                extra = 2;
+                            }else{//triple y cancela personas extra
+                                Hospedaje = "1450";
+                                NPer = Integer.toString(((int)this.jSpinnerPersonas.getValue())-2);//actualizo el dato de tot de personas
+                            }
+                        }
+                    }
+                }else{
+                    Hospedaje = "1450";
+                }
+                break;
+        }
+        //Se hace la alta
+        
+        
+        String parte1 = "INSERT INTO clientes (Nombre, TipoHab, CdOrigen, NPersonas, Dias, Ingreso, Salida, Hospedaje, NHabitacion) VALUES (";
+        String parte2 = "'"+Nom+"','"+Tipo+"','"+Cd+"','"+NPer+"','"+Tiempo+"','"+Ing+"','"+Sal+"','"+Hospedaje+"','"+NumHab+"')";
+        String query = parte1 + parte2;
+        
+        int j = this.conn.Update(query);//SE HACE LA ALTA EN DB
+        System.out.println("Registro Exitoso "+j);
+        JOptionPane.showMessageDialog(null, "¡Registro del cliente exitoso!","¡Registro Exitoso!",JOptionPane.INFORMATION_MESSAGE);
+        
+        
+        //Modificacion de disponibilidad de habitacion elegida
+        String c = "0";//cadena que cambia la dispo de la hab
+        String cb = "UPDATE habitaciones SET Disponibilidad = '"+c+"' WHERE Numerodehabitacion = "+NumHab;//Instruccion SQL de cambio
+        
+        int f = this.conn.Update(cb);//SE HACE EL CAMBIO DE DISPONIBILIDAD EN LA HABITACION 
+        if(f > 0){//segunn valor de retorno se hizo o no la modificacion
+            System.out.println("Se modifico la disponibilidad de la habitacion "+NumHab);
+        }else{
+            System.out.println("No fue posible modificar la disponibilidad de la habitacion "+NumHab);
+        }
+
+        this.recibo = new Recibo_Check_In(Nom,NPer,Cd,Tiempo,Tipo,NumHab,Piso,Ing,Sal,extra,Hospedaje);//instancio todos los datos 
+        new P5_Recibo(this.recibo).setVisible(true);//mando todos los datos para mostrarlos en el recibo(JFrame P5_Recibo)
+        this.dispose();
+    }//GEN-LAST:event_jButton4ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -408,6 +637,7 @@ public class P5_Check_In extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private javax.swing.JComboBox<String> jComboBox1;
     private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JLabel jLabel1;
@@ -418,12 +648,32 @@ public class P5_Check_In extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JLabel jLabelHabitacion;
     private javax.swing.JLabel jLabelNum;
+    private javax.swing.JLabel jLabelPiso;
     private javax.swing.JPanel jPanelFondo;
     private javax.swing.JPanel jPanelLogo;
     private javax.swing.JSpinner jSpinnerDias;
     private javax.swing.JSpinner jSpinnerPersonas;
     private javax.swing.JTextField jTextFieldNom;
     // End of variables declaration//GEN-END:variables
+
+    private String sumarDias() {
+        SimpleDateFormat dFormat = new SimpleDateFormat("YYYY-MM-dd");
+        String date =  dFormat.format(this.jDateChooser1.getDate());
+        
+        int dias = (int)this.jSpinnerDias.getValue();
+        if(dias == 0)  
+            return date;
+        String[] f = date.split("-");
+        Calendar calendar = Calendar.getInstance();
+        //calendar.setTime(new Date(Integer.parseInt(f[0]), Integer.parseInt(f[1]), Integer.parseInt(f[2])));
+        calendar.set(Integer.parseInt(f[0]), Integer.parseInt(f[1])-1, Integer.parseInt(f[2]));
+
+        calendar.add(Calendar.DAY_OF_MONTH, dias);
+        SimpleDateFormat d = new SimpleDateFormat("YYYY-MM-dd");
+        return d.format(calendar.getTime());
+        
+    }
 }

@@ -13,10 +13,14 @@ public class Hab {
     private 
             int Num;
             String tipo;
+            int Piso;
+            int ty;
 
-    public Hab(int Num, String tipo) {
+    public Hab(int Num, String tipo, int Piso, int ty) {
         this.Num = Num;
         this.tipo = tipo;
+        this.Piso = Piso;
+        this.ty = ty;
     }
 
     public int getNum() {
@@ -34,5 +38,22 @@ public class Hab {
     public void setTipo(String tipo) {
         this.tipo = tipo;
     }
+
+    public int getPiso() {
+        return Piso;
+    }
+
+    public void setPiso(int Piso) {
+        this.Piso = Piso;
+    }
+
+    public int getTy() {
+        return ty;
+    }
+
+    public void setTy(int ty) {
+        this.ty = ty;
+    }
+    
     
 }
