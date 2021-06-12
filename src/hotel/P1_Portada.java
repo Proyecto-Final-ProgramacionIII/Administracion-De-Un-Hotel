@@ -5,6 +5,7 @@
  */
 package hotel;
 
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
 import javax.swing.ImageIcon;
@@ -19,10 +20,13 @@ public class P1_Portada extends javax.swing.JFrame {
     /**
      * Creates new form P1_Portada
      */
-    //Logo logo = new Logo();
+      //Logo logo = new Logo();
     public P1_Portada() {
-      // this.setContentPane(logo);
         initComponents();
+        //this.setContentPane(logo);
+       /* imagen img = new imagen();
+        jPanelLogo.add(img);
+        jPanelLogo.repaint();*/
     }
 
     /**
@@ -285,10 +289,25 @@ public class P1_Portada extends javax.swing.JFrame {
         
         @Override
         public void paint(Graphics g){
-            img = new ImageIcon(getClass().getClassLoader().getResource("src/imagenes/uaalogo.png")).getImage();
+            img = new ImageIcon(getClass().getResource("imagenes/uaalogo.png")).getImage();
             g.drawImage(img, 0, 0, getWidth(), getHeight(),this);
             setOpaque(false);
             super.paint(g);
+        }
+    }
+    
+    public class imagen extends javax.swing.JPanel{
+        
+        public imagen(){
+            this.setSize(300, 400);
+        }
+        
+        public void paint(Graphics grafico){
+            Dimension Height = getSize();
+            ImageIcon img = new ImageIcon(getClass().getResource("imagenes/uaalogo.png"));
+            grafico.drawImage(img.getImage(),0,0,Height.width,Height.height,null);
+            setOpaque(false);
+            super.paintComponent(grafico);
         }
     }*/
 }
