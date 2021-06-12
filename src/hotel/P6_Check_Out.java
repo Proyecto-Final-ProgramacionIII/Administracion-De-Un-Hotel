@@ -6,6 +6,8 @@
 package hotel;
 
 import clases.MySqlConn;
+import clases.PDF_Const;
+import clases.PDF;
 import java.awt.Color;
 import java.awt.Image;
 import java.sql.SQLException;
@@ -25,22 +27,25 @@ public class P6_Check_Out extends javax.swing.JFrame {
      * Creates new form P6_Check_Out
      */
     MySqlConn conn = new MySqlConn();
-    
-    public P6_Check_Out(MySqlConn conn){
+    PDF_Const pdf;
+
+    public P6_Check_Out(MySqlConn conn) {
         this.conn = conn;
         initComponents();
         imagen();
     }
+
     public P6_Check_Out() {
         initComponents();
         imagen();
     }
-    public void imagen(){
+
+    public void imagen() {
         ImageIcon icono = new ImageIcon("src/imagenes/sal.png");
         JLabel imagen = new JLabel();
-        imagen.setBounds(0,0,380,450);
-        imagen.setIcon(new ImageIcon(icono.getImage().getScaledInstance(imagen.getWidth(),imagen.getHeight(),Image.SCALE_SMOOTH) ));
-       
+        imagen.setBounds(0, 0, 390, 450);
+        imagen.setIcon(new ImageIcon(icono.getImage().getScaledInstance(imagen.getWidth(), imagen.getHeight(), Image.SCALE_SMOOTH)));
+
         jPanelFondo.add(imagen);
         this.jLabelDias.setText("");
         this.jLabelPex.setText("");
@@ -79,10 +84,10 @@ public class P6_Check_Out extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Salida de cliente");
-        setPreferredSize(new java.awt.Dimension(380, 450));
+        setPreferredSize(new java.awt.Dimension(390, 450));
 
         jPanelFondo.setBackground(new java.awt.Color(204, 204, 204));
-        jPanelFondo.setPreferredSize(new java.awt.Dimension(380, 450));
+        jPanelFondo.setPreferredSize(new java.awt.Dimension(390, 450));
 
         jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
         jLabel1.setText("Salida del Cliente");
@@ -275,6 +280,7 @@ public class P6_Check_Out extends javax.swing.JFrame {
         });
 
         jLabel6.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("Tipo de habitacion");
         jLabel6.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -286,6 +292,7 @@ public class P6_Check_Out extends javax.swing.JFrame {
         });
 
         jLabel7.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
         jLabel7.setText("Sencilla");
         jLabel7.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -439,54 +446,62 @@ public class P6_Check_Out extends javax.swing.JFrame {
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
         String tipo = null;
-        int n = 0,nper = 0,dias = 0;
-        if(this.jTextFieldNHab.getText().trim().isEmpty()){
-            JOptionPane.showMessageDialog(null,"No seleccionaste ninguna habitacion", "Numero de habitacion vacio", JOptionPane.ERROR_MESSAGE);
-        }else{
-            String query = "select * from clientes where NHabitacion = "+"'"+this.jTextFieldNHab.getText().trim()+"'";
+        int n = 0, nper = 0, dias = 0;
+        boolean band = false;
+        if (this.jTextFieldNHab.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "No seleccionaste ninguna habitacion", "Numero de habitacion vacio", JOptionPane.ERROR_MESSAGE);
+        } else {
+            String query = "select * from clientes where NHabitacion = " + "'" + this.jTextFieldNHab.getText().trim() + "'";
             this.conn.Consult(query);
             try {
                 n = this.conn.rs.getRow();
+                tipo = this.conn.rs.getString(2);
             } catch (SQLException ex) {
                 System.out.println("Error#1...");
+                band = true;
             }
-            if(n != 0){
-                try {
-                    tipo = this.conn.rs.getString(2);
-                    nper = this.conn.rs.getInt(4);
-                    dias = this.conn.rs.getInt(5);
-                } catch (SQLException ex) {
-                    System.out.println("Error#1...");
-                }
-                oncheck();//activa los jcheckbox
-                this.jLabelDias.setText(" "+dias+" ");
-                if("Sencilla".equals(tipo)){
-                    if(nper == 1)
-                        this.jLabelPex.setText(" 0 ");
-                    else{
-                        int a = nper - 1;
-                        this.jLabelPex.setText(" "+a+" ");
+            if (band != true) {
+                if (n != 0) {
+                    try {
+                        tipo = this.conn.rs.getString(2);
+                        nper = this.conn.rs.getInt(4);
+                        dias = this.conn.rs.getInt(5);
+                    } catch (SQLException ex) {
+                        System.out.println("Error#1...");
                     }
-                }
-                if("Doble".equals(tipo)){
-                    if(nper == 2)
-                        this.jLabelPex.setText(" 0 ");
-                    else{
-                        int a = nper - 2;
-                        this.jLabelPex.setText(" "+a+" ");
+                    oncheck();//activa los jcheckbox
+                    this.jLabelDias.setText(" " + dias + " ");
+                    if ("Sencilla".equals(tipo)) {
+                        if (nper == 1) {
+                            this.jLabelPex.setText(" 0 ");
+                        } else {
+                            int a = nper - 1;
+                            this.jLabelPex.setText(" " + a + " ");
+                        }
                     }
-                }
-                if("Triple".equals(tipo)){
-                    if(nper == 3)
-                        this.jLabelPex.setText(" 0 ");
-                    else{
-                        int a = nper - 3;
-                        this.jLabelPex.setText(" "+a+" ");
+                    if ("Doble".equals(tipo)) {
+                        if (nper == 2) {
+                            this.jLabelPex.setText(" 0 ");
+                        } else {
+                            int a = nper - 2;
+                            this.jLabelPex.setText(" " + a + " ");
+                        }
                     }
+                    if ("Triple".equals(tipo)) {
+                        if (nper == 3) {
+                            this.jLabelPex.setText(" 0 ");
+                        } else {
+                            int a = nper - 3;
+                            this.jLabelPex.setText(" " + a + " ");
+                        }
+                    }
+                    this.jLabel7.setText(" " + tipo + " ");
+                } else {
+                    JOptionPane.showMessageDialog(null, "La habitacion buscada no se encuentra ocupada", "Habitacion no ocupada", JOptionPane.ERROR_MESSAGE);
                 }
-                this.jLabel7.setText(" "+tipo+" ");
-            }else{
-                JOptionPane.showMessageDialog(null,"La habitacion buscada no se encuentra ocupada", "Habitacion No Ocupada", JOptionPane.ERROR_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(null, "La habitacion es inexistente", "Habitacion no encontrada", JOptionPane.ERROR_MESSAGE);
+
             }
         }
     }//GEN-LAST:event_jButton4ActionPerformed
@@ -505,14 +520,15 @@ public class P6_Check_Out extends javax.swing.JFrame {
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
-        String nom = null,tipo = null,cd,ing,sal;
-        int n = 0,nper = 0,dias = 0,hos = 0,nhab = 0, ext = 0, tothosDias;
-        String extC;
-        if(this.jTextFieldNHab.getText().trim().isEmpty()){
-            JOptionPane.showMessageDialog(null,"No seleccionaste ninguna habitacion", "Numero de habitacion vacio", JOptionPane.ERROR_MESSAGE);
-        }else{
-            String query = "select * from clientes where NHabitacion = "+"'"+this.jTextFieldNHab.getText().trim()+"'";
-        
+        String nom = null, tipo = null, cd = null, ing = null, sal = null, tothosDias;
+        int n = 0, nper = 0, dias = 0, hos = 0, nhab = 0, ext = 0;
+        String extC[] = null, costo = null;
+        boolean band = false;
+        if (this.jTextFieldNHab.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "No seleccionaste ninguna habitacion", "Numero de habitacion vacio", JOptionPane.ERROR_MESSAGE);
+        } else {
+            String query = "select * from clientes where NHabitacion = " + "'" + this.jTextFieldNHab.getText().trim() + "'";
+
             this.conn.Consult(query);
             try {
                 nom = this.conn.rs.getString(1);//nombre
@@ -526,85 +542,117 @@ public class P6_Check_Out extends javax.swing.JFrame {
                 nhab = this.conn.rs.getInt(9);
             } catch (SQLException ex) {
                 System.out.println("Error#1...");
+                band = true;
             }
-            tothosDias = hos * dias;//total de hospedaje = hospedajexdia * dias
-            if(this.jCheckBoxCuarto.isSelected()){
-                ext = ext + 450;
-                extC = "Servicio al cuarto";
-            }
-            if(this.jCheckBoxGym.isSelected()){
-                ext = ext + 400;
-                extC = "Servicio de GYM";
-            }
-            if(this.jCheckBoxLav.isSelected()){
-                ext = ext + 350;
-                extC = "Servicio de lavanderia";
-            }
-            if(this.jCheckBoxSpa.isSelected()){
-                ext = ext + 630;
-                extC = "Servicio de SPA";
-            }
-            if(this.jCheckBoxbar.isSelected()){
-                ext = ext + 580;
-                extC = "Servicio de bar";
-            }
-            if(this.jCheckBoxtinto.isSelected()){
-                ext = ext + 390;
-                extC = "Servicio de tintorería";
-            }
-            
-            //baja de la tabla clientes
-            query = " delete from clientes where Nombre ="+"'"+nom+"'";
-            int j = this.conn.Update(query);
-            
-            if( j > 0)
-                JOptionPane.showMessageDialog(null, "El pago fue exitoso, se esta generando tu recibo de pago","PAgo Realizado",JOptionPane.PLAIN_MESSAGE);            
-            else
-                JOptionPane.showMessageDialog(this, "El pago no se ha podido efectuar","Error de pago",JOptionPane.ERROR_MESSAGE);
-        
-             //Modificacion de disponibilidad de habitacion a DISPONIBLE
-            String c = "1";//cadena que cambia la dispo de la hab
-            String cb = "UPDATE habitaciones SET Disponibilidad = '"+c+"' WHERE Numerodehabitacion = "+nhab;//Instruccion SQL de cambio
-        
-            int f = this.conn.Update(cb);//SE HACE EL CAMBIO DE DISPONIBILIDAD EN LA HABITACION 
-            if(f > 0)//segunn valor de retorno se hizo o no la modificacion
-                System.out.println("Se modifico la disponibilidad de la habitacion "+nhab);
-            else
-                System.out.println("No fue posible modificar la disponibilidad de la habitacion "+nhab);
-            
-            //Guardar ingresos del hotel
-            query = "select * from ingresoshotel where Llave = "+"'"+1+"'";
-            this.conn.Consult(query);
-            int x = 0, ingreso = 0;
-            
-            try {
-                x = this.conn.rs.getRow();
-            } catch (Exception e){
-                System.out.println("Error#2 ...");
-            }
-            if(n != 0){
-                try {
-                    ingreso = this.conn.rs.getInt(2);
-                } catch (SQLException ex) {
-                    System.out.println("Error#3 ...");
+            if (band != true) {//si band = true hubo error al ingresar una habitacion inexistente
+
+                tothosDias = Integer.toString(hos * dias);//total de hospedaje = hospedajexdia * dias
+
+                if (this.jCheckBoxCuarto.isSelected()) {
+                    ext = ext + 450;
+                    extC[0] = "Servicio al cuarto   $450";
                 }
-                ingreso = ingreso + (tothosDias + ext);//lo que ya tenia el hotel mas lo que pago este cliente
-                query = "UPDATE ingresoshotel set ingresos = '"+ingreso+"' WHERE Llave = "+1;//se actualiza
-                int g = this.conn.Update(cb);//SE HACE EL CAMBIO DE DISPONIBILIDAD EN LA HABITACION 
-                if(g > 0)//segunn valor de retorno se hizo o no la modificacion
-                    System.out.println("Se agrego el nuevo ingreso del hotel ");
-                else
-                    System.out.println("No fue posible agregar el ingreso del hotel ");
-            }else{
-                System.out.println("Error al obtener datos de ingreso del hotel");
+                if (this.jCheckBoxGym.isSelected()) {
+                    ext = ext + 400;
+                    extC[1] = "Servicio de GYM  $400";
+                }
+                if (this.jCheckBoxLav.isSelected()) {
+                    ext = ext + 350;
+                    extC[2] = "Servicio de lavanderia   $350";
+                }
+                if (this.jCheckBoxSpa.isSelected()) {
+                    ext = ext + 630;
+                    extC[3] = "Servicio de SPA  $630";
+                }
+                if (this.jCheckBoxbar.isSelected()) {
+                    ext = ext + 580;
+                    extC[4] = "Servicio de bar $580";
+                }
+                if (this.jCheckBoxtinto.isSelected()) {
+                    ext = ext + 390;
+                    extC[5] = "Servicio de tintorería   $390";
+                }
+                if ("Sencilla".equals(tipo)) {
+                    costo = "1130";
+                }
+                if ("Doble".equals(tipo)) {
+                    costo = "1525";
+                }
+                if ("Triple".equals(tipo)) {
+                    costo = "2000";
+                }
+
+                //Baja de la tabla clientes
+                query = " delete from clientes where Nombre =" + "'" + nom + "'";
+                int j = this.conn.Update(query);
+
+                if (j > 0) {
+                    JOptionPane.showMessageDialog(null, "El pago fue exitoso, se esta generando tu recibo de pago", "Pago Realizado", JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(this, "El pago no se ha podido efectuar", "Error de pago", JOptionPane.ERROR_MESSAGE);
+                }
+
+                //Modificacion de disponibilidad de habitacion a DISPONIBLE
+                String c = "1";//cadena que cambia la dispo de la hab
+                String cb = "UPDATE habitaciones SET Disponibilidad = '" + c + "' WHERE Numerodehabitacion = " + nhab;//Instruccion SQL de cambio
+
+                int f = this.conn.Update(cb);//SE HACE EL CAMBIO DE DISPONIBILIDAD EN LA HABITACION 
+                if (f > 0)//segunn valor de retorno se hizo o no la modificacion
+                {
+                    System.out.println("Se modifico la disponibilidad de la habitacion " + nhab);
+                } else {
+                    System.out.println("No fue posible modificar la disponibilidad de la habitacion " + nhab);
+                }
+
+                //Extrae ingresos del hotel
+                query = "select * from ingresoshotel where Llave = " + "'" + c + "'";
+                this.conn.Consult(query);
+                int x = 0, ingreso = 0;
+
+                try {
+                    x = this.conn.rs.getRow();
+                } catch (Exception e) {
+                    System.out.println("Error#2 ...");
+                }
+                if (x != 0) {
+                    try {
+                        ingreso = this.conn.rs.getInt(2);
+                    } catch (SQLException ex) {
+                        System.out.println("Error#3 ...");
+                    }
+                    ingreso = ingreso + (Integer.parseInt(tothosDias) + ext);//lo que ya tenia el hotel mas lo que pago este cliente
+                    //Actualiza ingresos del hotel
+                    query = "UPDATE ingresoshotel set ingresos = '" + Integer.toString(ingreso) + "' WHERE Llave = " + 1;//se actualiza
+                    int g = this.conn.Update(query);//SE HACE EL CAMBIO DE DISPONIBILIDAD EN LA HABITACION 
+                    if (g > 0)//segunn valor de retorno se hizo o no la modificacion
+                    {
+                        System.out.println("Se agrego el nuevo ingreso del hotel ");
+                    } else {
+                        System.out.println("No fue posible agregar el ingreso del hotel ");
+                    }
+                } else {
+                    System.out.println("Error al obtener datos de ingreso del hotel");
+                }
+                //sacmos Fecha
+                Date fecha = new Date();
+                //System.out.println(f.getDate());
+                SimpleDateFormat dFormat = new SimpleDateFormat("dd-MMMMM-YYYY hh:mm a");
+                String cadFecha = dFormat.format(fecha);
+
+                String ex = Integer.toString(ext);
+                //se genera el PDF_Const
+                this.pdf = new PDF_Const(cadFecha, nom, cd, ing, sal, tipo, costo, dias, tothosDias, ex, extC);
+                try {
+                    System.out.println("Se esta generando el ticket de pago...");
+                    Thread.sleep(4000);
+                    new PDF(this.pdf);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "Error en busqueda de habitacion", "Error de habitacion", JOptionPane.ERROR_MESSAGE);
             }
-            //sacmos Fecha
-            Date fecha = new Date();
-            //System.out.println(f.getDate());
-            SimpleDateFormat dFormat = new SimpleDateFormat("dd - MMMMM - YYYY");
-            String cadFecha = dFormat.format(fecha);
-            
-            //se genera el PDF
+            this.jTextFieldNHab.setText("");
         }
     }//GEN-LAST:event_jButton5ActionPerformed
 
@@ -654,22 +702,22 @@ public class P6_Check_Out extends javax.swing.JFrame {
 
     private void jLabel6MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel6MouseEntered
         // TODO add your handling code here:
-        jLabel6.setForeground(Color.WHITE);
+        jLabel6.setForeground(Color.RED);
     }//GEN-LAST:event_jLabel6MouseEntered
 
     private void jLabel6MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel6MouseExited
         // TODO add your handling code here:
-         jLabel6.setForeground(Color.BLACK);
+        jLabel6.setForeground(Color.WHITE);
     }//GEN-LAST:event_jLabel6MouseExited
 
     private void jLabel7MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MouseEntered
         // TODO add your handling code here:
-        jLabel7.setForeground(Color.WHITE);
+        jLabel7.setForeground(Color.RED);
     }//GEN-LAST:event_jLabel7MouseEntered
 
     private void jLabel7MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MouseExited
         // TODO add your handling code here:
-         jLabel7.setForeground(Color.BLACK);
+        jLabel7.setForeground(Color.WHITE);
     }//GEN-LAST:event_jLabel7MouseExited
 
     private void jCheckBoxCuartoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jCheckBoxCuartoMouseEntered
