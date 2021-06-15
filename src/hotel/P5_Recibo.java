@@ -194,7 +194,6 @@ public class P5_Recibo extends javax.swing.JFrame {
         jCheckBox1Per.setText("1 persona extra");
         jCheckBox1Per.setContentAreaFilled(false);
         jCheckBox1Per.setEnabled(false);
-        jCheckBox1Per.setOpaque(false);
         jCheckBox1Per.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jCheckBox1PerActionPerformed(evt);
