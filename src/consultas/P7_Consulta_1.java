@@ -5,6 +5,16 @@
  */
 package consultas;
 
+import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+
 /**
  *
  * @author Cesar
@@ -14,8 +24,29 @@ public class P7_Consulta_1 extends javax.swing.JFrame {
     /**
      * Creates new form P7_Consulta_Galeria
      */
+    int a = 0;
+
     public P7_Consulta_1() {
         initComponents();
+        imagen();
+    }
+
+    public void imagen() {
+        ImageIcon icono = new ImageIcon("src/imagenes/sig.png");
+        JLabel imagen = new JLabel();
+
+        imagen.setBounds(0, 0, 100, 100);
+        imagen.setIcon(new ImageIcon(icono.getImage().getScaledInstance(imagen.getWidth(), imagen.getHeight(), Image.SCALE_SMOOTH)));
+
+        ImageIcon icono1 = new ImageIcon("src/imagenes/sig.png");
+        JLabel imagen1 = new JLabel();
+
+        imagen1.setBounds(0, 0, 100, 100);
+        imagen1.setIcon(new ImageIcon(icono1.getImage().getScaledInstance(imagen1.getWidth(), imagen1.getHeight(), Image.SCALE_SMOOTH)));
+
+        //imagen1.
+        jPanelSig.add(imagen);
+        jPanelAnt.add(imagen1);
     }
 
     /**
@@ -27,21 +58,228 @@ public class P7_Consulta_1 extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanelFondo = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jPanelF = new javax.swing.JPanel();
+        jPanelGal = new javax.swing.JPanel();
+        jLabelI1 = new javax.swing.JLabel();
+        jPanelSig = new javax.swing.JPanel();
+        jPanelAnt = new javax.swing.JPanel();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Galeria del hotel");
+        setPreferredSize(new java.awt.Dimension(715, 415));
+
+        jPanelFondo.setBackground(new java.awt.Color(255, 255, 255));
+        jPanelFondo.setPreferredSize(new java.awt.Dimension(715, 415));
+
+        jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        jLabel1.setText("Nuestro Hotel");
+
+        jPanelF.setBackground(new java.awt.Color(102, 102, 102));
+
+        jPanelGal.setBackground(new java.awt.Color(0, 0, 0));
+
+        jLabelI1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/galeria/a1.png"))); // NOI18N
+        jLabelI1.setText("jLabel2");
+
+        javax.swing.GroupLayout jPanelGalLayout = new javax.swing.GroupLayout(jPanelGal);
+        jPanelGal.setLayout(jPanelGalLayout);
+        jPanelGalLayout.setHorizontalGroup(
+            jPanelGalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelGalLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabelI1, javax.swing.GroupLayout.PREFERRED_SIZE, 466, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(18, Short.MAX_VALUE))
+        );
+        jPanelGalLayout.setVerticalGroup(
+            jPanelGalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelGalLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabelI1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        jPanelSig.setOpaque(false);
+        jPanelSig.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanelSigMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jPanelSigMouseEntered(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanelSigLayout = new javax.swing.GroupLayout(jPanelSig);
+        jPanelSig.setLayout(jPanelSigLayout);
+        jPanelSigLayout.setHorizontalGroup(
+            jPanelSigLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
+        jPanelSigLayout.setVerticalGroup(
+            jPanelSigLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
+
+        jPanelAnt.setOpaque(false);
+
+        javax.swing.GroupLayout jPanelAntLayout = new javax.swing.GroupLayout(jPanelAnt);
+        jPanelAnt.setLayout(jPanelAntLayout);
+        jPanelAntLayout.setHorizontalGroup(
+            jPanelAntLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
+        jPanelAntLayout.setVerticalGroup(
+            jPanelAntLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout jPanelFLayout = new javax.swing.GroupLayout(jPanelF);
+        jPanelF.setLayout(jPanelFLayout);
+        jPanelFLayout.setHorizontalGroup(
+            jPanelFLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelFLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanelAnt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanelGal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanelSig, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanelFLayout.setVerticalGroup(
+            jPanelFLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanelGal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanelFLayout.createSequentialGroup()
+                .addGroup(jPanelFLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanelFLayout.createSequentialGroup()
+                        .addGap(75, 75, 75)
+                        .addComponent(jPanelSig, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanelFLayout.createSequentialGroup()
+                        .addGap(78, 78, 78)
+                        .addComponent(jPanelAnt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(121, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout jPanelFondoLayout = new javax.swing.GroupLayout(jPanelFondo);
+        jPanelFondo.setLayout(jPanelFondoLayout);
+        jPanelFondoLayout.setHorizontalGroup(
+            jPanelFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelFondoLayout.createSequentialGroup()
+                .addComponent(jPanelF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(jPanelFondoLayout.createSequentialGroup()
+                .addGap(286, 286, 286)
+                .addComponent(jLabel1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanelFondoLayout.setVerticalGroup(
+            jPanelFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelFondoLayout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(jLabel1)
+                .addGap(18, 18, 18)
+                .addComponent(jPanelF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(58, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addComponent(jPanelFondo, javax.swing.GroupLayout.DEFAULT_SIZE, 726, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanelFondo, javax.swing.GroupLayout.PREFERRED_SIZE, 416, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jPanelSigMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanelSigMouseEntered
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_jPanelSigMouseEntered
+
+    private void jPanelSigMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanelSigMouseClicked
+        // TODO add your handling code here:
+        //jPanelSig.removeAll();
+        ImageIcon icono;
+        JLabel imagen1;
+        switch (a) {
+            case 0:
+                
+                /*jPanelGal.removeAll();
+                ImageIcon icono1 = new ImageIcon("src/imagenes/gallo.png");
+                imagen1 = new JLabel();
+
+                imagen1.setBounds(0, 0, 494, 200);
+                imagen1.setIcon(new ImageIcon(icono1.getImage().getScaledInstance(imagen1.getWidth(), imagen1.getHeight(), Image.SCALE_SMOOTH)));
+
+                //imagen1.
+                System.out.println("a");
+                jPanelGal.add(imagen1);*/
+                a++;
+                break;
+
+            case 1:
+                /*jPanelGal.removeAll();
+                icono1 = new ImageIcon("src/imagenes/logo1.png");
+                imagen1 = new JLabel();
+
+                imagen1.setBounds(0, 0, 494, 200);
+                imagen1.setIcon(new ImageIcon(icono1.getImage().getScaledInstance(imagen1.getWidth(), imagen1.getHeight(), Image.SCALE_SMOOTH)));
+
+                //imagen1.
+                System.out.println("a");
+                jPanelGal.add(imagen1);
+                a++;*/
+                break;
+            case 2:
+                /*jPanelGal.removeAll();
+                icono1 = new ImageIcon("src/imagenes/logo.png");
+                imagen1 = new JLabel();
+
+                imagen1.setBounds(0, 0, 494, 200);
+                imagen1.setIcon(new ImageIcon(icono1.getImage().getScaledInstance(imagen1.getWidth(), imagen1.getHeight(), Image.SCALE_SMOOTH)));
+
+                //imagen1.
+                System.out.println("a");
+                jPanelGal.add(imagen1);
+                a++;*/
+                break;
+            case 3:
+                /*jPanelGal.removeAll();
+                icono1 = new ImageIcon("src/imagenes/Sistema.png");
+                imagen1 = new JLabel();
+
+                imagen1.setBounds(0, 0, 494, 200);
+                imagen1.setIcon(new ImageIcon(icono1.getImage().getScaledInstance(imagen1.getWidth(), imagen1.getHeight(), Image.SCALE_SMOOTH)));
+
+                //imagen1.
+                System.out.println("a");
+                jPanelGal.add(imagen1);
+                a++;*/
+                break;
+            case 4:
+                /*jPanelGal.removeAll();
+                icono1 = new ImageIcon("src/imagenes/login.png");
+                imagen1 = new JLabel();
+
+                imagen1.setBounds(0, 0, 494, 200);
+                imagen1.setIcon(new ImageIcon(icono1.getImage().getScaledInstance(imagen1.getWidth(), imagen1.getHeight(), Image.SCALE_SMOOTH)));
+
+                //imagen1.
+                System.out.println("a");
+                jPanelGal.add(imagen1);
+                a++;*/
+                break;
+
+        }
+    }//GEN-LAST:event_jPanelSigMouseClicked
 
     /**
      * @param args the command line arguments
@@ -57,19 +295,27 @@ public class P7_Consulta_1 extends javax.swing.JFrame {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
+
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(P7_Consulta_1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(P7_Consulta_1.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(P7_Consulta_1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(P7_Consulta_1.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(P7_Consulta_1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(P7_Consulta_1.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(P7_Consulta_1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(P7_Consulta_1.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-        //</editor-fold>
+        //jLabelSig1r-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -80,5 +326,12 @@ public class P7_Consulta_1 extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabelI1;
+    private javax.swing.JPanel jPanelAnt;
+    private javax.swing.JPanel jPanelF;
+    private javax.swing.JPanel jPanelFondo;
+    private javax.swing.JPanel jPanelGal;
+    private javax.swing.JPanel jPanelSig;
     // End of variables declaration//GEN-END:variables
 }

@@ -70,13 +70,13 @@ public class P7_Consulta_Menu extends javax.swing.JFrame {
         jButton12 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(452, 640));
 
         jPanel1.setPreferredSize(new java.awt.Dimension(452, 640));
 
-        jLabel1.setFont(new java.awt.Font("MS Reference Sans Serif", 1, 12)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
         jLabel1.setText("CONSULTAS");
 
+        jButton1.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
         jButton1.setText("Galeria de Fotos");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -84,6 +84,7 @@ public class P7_Consulta_Menu extends javax.swing.JFrame {
             }
         });
 
+        jButton2.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
         jButton2.setText("Ingreos del hotel hasta el momento");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -91,8 +92,10 @@ public class P7_Consulta_Menu extends javax.swing.JFrame {
             }
         });
 
+        jButton3.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
         jButton3.setText("Porcentaje de ocupación por tipo de habitación");
 
+        jButton4.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
         jButton4.setText("Total de habitaciones");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -100,6 +103,7 @@ public class P7_Consulta_Menu extends javax.swing.JFrame {
             }
         });
 
+        jButton5.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
         jButton5.setText("Porcentaje de ocupación del hotel");
         jButton5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -107,6 +111,7 @@ public class P7_Consulta_Menu extends javax.swing.JFrame {
             }
         });
 
+        jButton6.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
         jButton6.setText("Imprimir costo de habitaciones");
         jButton6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -114,6 +119,7 @@ public class P7_Consulta_Menu extends javax.swing.JFrame {
             }
         });
 
+        jButton7.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
         jButton7.setText("Busqueda de huesped");
         jButton7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -121,8 +127,10 @@ public class P7_Consulta_Menu extends javax.swing.JFrame {
             }
         });
 
+        jButton8.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
         jButton8.setText("Informacion de habitacion por número");
 
+        jButton9.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
         jButton9.setText("Habitaciones disponibles por piso");
         jButton9.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -130,6 +138,7 @@ public class P7_Consulta_Menu extends javax.swing.JFrame {
             }
         });
 
+        jButton10.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
         jButton10.setText("Lista de huespedes");
         jButton10.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -137,8 +146,10 @@ public class P7_Consulta_Menu extends javax.swing.JFrame {
             }
         });
 
+        jButton11.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
         jButton11.setText("Habitaciones ocupadas por piso");
 
+        jButton12.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
         jButton12.setText("Regresar");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -192,7 +203,7 @@ public class P7_Consulta_Menu extends javax.swing.JFrame {
                 .addComponent(jButton3)
                 .addGap(18, 18, 18)
                 .addComponent(jButton12)
-                .addContainerGap(70, Short.MAX_VALUE))
+                .addContainerGap(66, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
