@@ -5,15 +5,16 @@
  */
 package consultas;
 
+import hotel.P7_Consulta_Menu;
+import java.awt.Color;
 import java.awt.Image;
-import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javazoom.jlgui.basicplayer.BasicPlayer;
+import javazoom.jlgui.basicplayer.BasicPlayerException;
 
 /**
  *
@@ -24,11 +25,12 @@ public class P7_Consulta_1 extends javax.swing.JFrame {
     /**
      * Creates new form P7_Consulta_Galeria
      */
-    int a = 0;
-
+    int a = 1;
+    BasicPlayer audio = new BasicPlayer();
     public P7_Consulta_1() {
         initComponents();
         imagen();
+        audio();
     }
 
     public void imagen() {
@@ -38,7 +40,7 @@ public class P7_Consulta_1 extends javax.swing.JFrame {
         imagen.setBounds(0, 0, 100, 100);
         imagen.setIcon(new ImageIcon(icono.getImage().getScaledInstance(imagen.getWidth(), imagen.getHeight(), Image.SCALE_SMOOTH)));
 
-        ImageIcon icono1 = new ImageIcon("src/imagenes/sig.png");
+        ImageIcon icono1 = new ImageIcon("src/imagenes/ant.png");
         JLabel imagen1 = new JLabel();
 
         imagen1.setBounds(0, 0, 100, 100);
@@ -47,6 +49,10 @@ public class P7_Consulta_1 extends javax.swing.JFrame {
         //imagen1.
         jPanelSig.add(imagen);
         jPanelAnt.add(imagen1);
+
+        ImageIcon icono2 = new ImageIcon("src/imagenes/galeria/a1.png");
+        this.jLabel2.setBounds(0, 0, 494, 315);
+        this.jLabel2.setIcon(new ImageIcon(icono2.getImage().getScaledInstance(this.jLabel2.getWidth(), this.jLabel2.getHeight(), Image.SCALE_SMOOTH)));
     }
 
     /**
@@ -62,13 +68,15 @@ public class P7_Consulta_1 extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jPanelF = new javax.swing.JPanel();
         jPanelGal = new javax.swing.JPanel();
-        jLabelI1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
         jPanelSig = new javax.swing.JPanel();
         jPanelAnt = new javax.swing.JPanel();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Galeria del hotel");
-        setPreferredSize(new java.awt.Dimension(715, 415));
 
         jPanelFondo.setBackground(new java.awt.Color(255, 255, 255));
         jPanelFondo.setPreferredSize(new java.awt.Dimension(715, 415));
@@ -76,37 +84,26 @@ public class P7_Consulta_1 extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         jLabel1.setText("Nuestro Hotel");
 
-        jPanelF.setBackground(new java.awt.Color(102, 102, 102));
+        jPanelF.setBackground(new java.awt.Color(255, 255, 255));
+        jPanelF.setPreferredSize(new java.awt.Dimension(725, 315));
 
         jPanelGal.setBackground(new java.awt.Color(0, 0, 0));
-
-        jLabelI1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/galeria/a1.png"))); // NOI18N
-        jLabelI1.setText("jLabel2");
 
         javax.swing.GroupLayout jPanelGalLayout = new javax.swing.GroupLayout(jPanelGal);
         jPanelGal.setLayout(jPanelGalLayout);
         jPanelGalLayout.setHorizontalGroup(
             jPanelGalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelGalLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabelI1, javax.swing.GroupLayout.PREFERRED_SIZE, 466, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(18, Short.MAX_VALUE))
+            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 494, Short.MAX_VALUE)
         );
         jPanelGalLayout.setVerticalGroup(
             jPanelGalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelGalLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabelI1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        jPanelSig.setOpaque(false);
+        jPanelSig.setBackground(new java.awt.Color(255, 255, 255));
         jPanelSig.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jPanelSigMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jPanelSigMouseEntered(evt);
             }
         });
 
@@ -121,7 +118,12 @@ public class P7_Consulta_1 extends javax.swing.JFrame {
             .addGap(0, 100, Short.MAX_VALUE)
         );
 
-        jPanelAnt.setOpaque(false);
+        jPanelAnt.setBackground(new java.awt.Color(255, 255, 255));
+        jPanelAnt.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanelAntMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanelAntLayout = new javax.swing.GroupLayout(jPanelAnt);
         jPanelAnt.setLayout(jPanelAntLayout);
@@ -153,133 +155,220 @@ public class P7_Consulta_1 extends javax.swing.JFrame {
             .addGroup(jPanelFLayout.createSequentialGroup()
                 .addGroup(jPanelFLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanelFLayout.createSequentialGroup()
-                        .addGap(75, 75, 75)
-                        .addComponent(jPanelSig, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(102, 102, 102)
+                        .addComponent(jPanelAnt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanelFLayout.createSequentialGroup()
-                        .addGap(78, 78, 78)
-                        .addComponent(jPanelAnt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(121, Short.MAX_VALUE))
+                        .addGap(94, 94, 94)
+                        .addComponent(jPanelSig, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(113, Short.MAX_VALUE))
         );
+
+        jButton1.setBackground(new java.awt.Color(0, 0, 0));
+        jButton1.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
+        jButton1.setText("Regresar");
+        jButton1.setBorderPainted(false);
+        jButton1.setContentAreaFilled(false);
+        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jButton1MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jButton1MouseExited(evt);
+            }
+        });
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        jButton2.setBackground(new java.awt.Color(0, 0, 0));
+        jButton2.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
+        jButton2.setText("Pausar audio");
+        jButton2.setBorderPainted(false);
+        jButton2.setContentAreaFilled(false);
+        jButton2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jButton2MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jButton2MouseExited(evt);
+            }
+        });
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        jButton3.setBackground(new java.awt.Color(0, 0, 0));
+        jButton3.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
+        jButton3.setText("Reproducir audio");
+        jButton3.setBorderPainted(false);
+        jButton3.setContentAreaFilled(false);
+        jButton3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jButton3MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jButton3MouseExited(evt);
+            }
+        });
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanelFondoLayout = new javax.swing.GroupLayout(jPanelFondo);
         jPanelFondo.setLayout(jPanelFondoLayout);
         jPanelFondoLayout.setHorizontalGroup(
             jPanelFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelFondoLayout.createSequentialGroup()
+            .addGroup(jPanelFondoLayout.createSequentialGroup()
                 .addComponent(jPanelF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(jPanelFondoLayout.createSequentialGroup()
-                .addGap(286, 286, 286)
+                .addGap(317, 317, 317)
                 .addComponent(jLabel1)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanelFondoLayout.createSequentialGroup()
+                .addGap(77, 77, 77)
+                .addComponent(jButton1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton3)
+                .addGap(18, 18, 18)
+                .addComponent(jButton2)
+                .addGap(44, 44, 44))
         );
         jPanelFondoLayout.setVerticalGroup(
             jPanelFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelFondoLayout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addComponent(jLabel1)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanelF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(58, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanelFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
+                    .addComponent(jButton2)
+                    .addComponent(jButton3))
+                .addContainerGap(14, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanelFondo, javax.swing.GroupLayout.DEFAULT_SIZE, 726, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanelFondo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanelFondo, javax.swing.GroupLayout.PREFERRED_SIZE, 416, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jPanelFondo, javax.swing.GroupLayout.DEFAULT_SIZE, 416, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jPanelSigMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanelSigMouseEntered
-        // TODO add your handling code here:
-
-    }//GEN-LAST:event_jPanelSigMouseEntered
-
     private void jPanelSigMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanelSigMouseClicked
         // TODO add your handling code here:
-        //jPanelSig.removeAll();
-        ImageIcon icono;
-        JLabel imagen1;
-        switch (a) {
-            case 0:
-                
-                /*jPanelGal.removeAll();
-                ImageIcon icono1 = new ImageIcon("src/imagenes/gallo.png");
-                imagen1 = new JLabel();
-
-                imagen1.setBounds(0, 0, 494, 200);
-                imagen1.setIcon(new ImageIcon(icono1.getImage().getScaledInstance(imagen1.getWidth(), imagen1.getHeight(), Image.SCALE_SMOOTH)));
-
-                //imagen1.
-                System.out.println("a");
-                jPanelGal.add(imagen1);*/
-                a++;
-                break;
-
-            case 1:
-                /*jPanelGal.removeAll();
-                icono1 = new ImageIcon("src/imagenes/logo1.png");
-                imagen1 = new JLabel();
-
-                imagen1.setBounds(0, 0, 494, 200);
-                imagen1.setIcon(new ImageIcon(icono1.getImage().getScaledInstance(imagen1.getWidth(), imagen1.getHeight(), Image.SCALE_SMOOTH)));
-
-                //imagen1.
-                System.out.println("a");
-                jPanelGal.add(imagen1);
-                a++;*/
-                break;
-            case 2:
-                /*jPanelGal.removeAll();
-                icono1 = new ImageIcon("src/imagenes/logo.png");
-                imagen1 = new JLabel();
-
-                imagen1.setBounds(0, 0, 494, 200);
-                imagen1.setIcon(new ImageIcon(icono1.getImage().getScaledInstance(imagen1.getWidth(), imagen1.getHeight(), Image.SCALE_SMOOTH)));
-
-                //imagen1.
-                System.out.println("a");
-                jPanelGal.add(imagen1);
-                a++;*/
-                break;
-            case 3:
-                /*jPanelGal.removeAll();
-                icono1 = new ImageIcon("src/imagenes/Sistema.png");
-                imagen1 = new JLabel();
-
-                imagen1.setBounds(0, 0, 494, 200);
-                imagen1.setIcon(new ImageIcon(icono1.getImage().getScaledInstance(imagen1.getWidth(), imagen1.getHeight(), Image.SCALE_SMOOTH)));
-
-                //imagen1.
-                System.out.println("a");
-                jPanelGal.add(imagen1);
-                a++;*/
-                break;
-            case 4:
-                /*jPanelGal.removeAll();
-                icono1 = new ImageIcon("src/imagenes/login.png");
-                imagen1 = new JLabel();
-
-                imagen1.setBounds(0, 0, 494, 200);
-                imagen1.setIcon(new ImageIcon(icono1.getImage().getScaledInstance(imagen1.getWidth(), imagen1.getHeight(), Image.SCALE_SMOOTH)));
-
-                //imagen1.
-                System.out.println("a");
-                jPanelGal.add(imagen1);
-                a++;*/
-                break;
-
+        //jPanelSig.removeAll(); 
+        if (a == 15) {
+            a = 1;
         }
+        ImageIcon icono2;
+        icono2 = new ImageIcon("src/imagenes/galeria/a" + a + ".png");
+        this.jLabel2.setBounds(0, 0, 494, 315);
+        this.jLabel2.setIcon(new ImageIcon(icono2.getImage().getScaledInstance(this.jLabel2.getWidth(), this.jLabel2.getHeight(), Image.SCALE_SMOOTH)));
+        a++;
     }//GEN-LAST:event_jPanelSigMouseClicked
+
+    private void jPanelAntMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanelAntMouseClicked
+        // TODO add your handling code here:
+        if (a <= 0) {
+            a = 15;
+        }
+
+        ImageIcon icono2;
+        icono2 = new ImageIcon("src/imagenes/galeria/a" + a + ".png");
+        this.jLabel2.setBounds(0, 0, 494, 315);
+        this.jLabel2.setIcon(new ImageIcon(icono2.getImage().getScaledInstance(this.jLabel2.getWidth(), this.jLabel2.getHeight(), Image.SCALE_SMOOTH)));
+        a--;
+    }//GEN-LAST:event_jPanelAntMouseClicked
+
+    private void jButton1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseEntered
+        // TODO add your handling code here:
+        jButton1.setContentAreaFilled(true);
+        jButton1.setForeground(Color.WHITE);
+    }//GEN-LAST:event_jButton1MouseEntered
+
+    private void jButton1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseExited
+        // TODO add your handling code here:
+        jButton1.setContentAreaFilled(false);
+        jButton1.setForeground(Color.BLACK);
+    }//GEN-LAST:event_jButton1MouseExited
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        try {
+            // TODO add your handling code here:
+            audio.stop();
+        } catch (BasicPlayerException ex) {
+            System.out.println("stop");
+            Logger.getLogger(P7_Consulta_1.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        this.dispose();
+        new P7_Consulta_Menu().setVisible(true);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseEntered
+        // TODO add your handling code here:
+        jButton2.setContentAreaFilled(true);
+        jButton2.setForeground(Color.WHITE);
+    }//GEN-LAST:event_jButton2MouseEntered
+
+    private void jButton2MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseExited
+        // TODO add your handling code here:
+        jButton2.setContentAreaFilled(false);
+        jButton2.setForeground(Color.BLACK);
+    }//GEN-LAST:event_jButton2MouseExited
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        
+        try {
+            // TODO add your handling code here:
+            audio.pause();
+        } catch (BasicPlayerException ex) {
+            System.out.println("pausa");
+            Logger.getLogger(P7_Consulta_1.class.getName()).log(Level.SEVERE, null, ex);
+        }
+          
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseEntered
+        // TODO add your handling code here:
+        jButton3.setContentAreaFilled(true);
+        jButton3.setForeground(Color.WHITE);
+    }//GEN-LAST:event_jButton3MouseEntered
+
+    private void jButton3MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseExited
+        // TODO add your handling code here:
+        jButton3.setContentAreaFilled(false);
+        jButton3.setForeground(Color.BLACK);
+    }//GEN-LAST:event_jButton3MouseExited
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        try {
+            // TODO add your handling code here:
+            audio.resume();
+        } catch (BasicPlayerException ex) {
+            System.out.println("play1");
+            Logger.getLogger(P7_Consulta_1.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -326,12 +415,34 @@ public class P7_Consulta_1 extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabelI1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanelAnt;
     private javax.swing.JPanel jPanelF;
     private javax.swing.JPanel jPanelFondo;
     private javax.swing.JPanel jPanelGal;
     private javax.swing.JPanel jPanelSig;
     // End of variables declaration//GEN-END:variables
+
+    private void audio() {
+        
+        try {
+            audio.open(new File("src/audio/audio.wav"));
+        } catch (BasicPlayerException ex) {
+            System.out.println("Error audio");
+            Logger.getLogger(P7_Consulta_1.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try {
+            audio.play();
+        } catch (BasicPlayerException ex) {
+            System.out.println("play");
+            Logger.getLogger(P7_Consulta_1.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+
+    }
+
 }

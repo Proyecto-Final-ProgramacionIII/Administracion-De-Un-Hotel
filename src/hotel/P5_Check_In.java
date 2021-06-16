@@ -585,9 +585,11 @@ public class P5_Check_In extends javax.swing.JFrame {
         //Modificacion de disponibilidad de habitacion elegida
         String c = "0";//cadena que cambia la dispo de la hab
         String cb = "UPDATE habitaciones SET Disponibilidad = '"+c+"' WHERE Numerodehabitacion = "+NumHab;//Instruccion SQL de cambio
-        
+        //String x1 = Integer.toString(extra);
+        //String et = "UPDATE habitaciones SET PersonaExtra = '"+x1+"' WHERE Numerodehabitacion = "+NumHab;//se actuliza numero personas extra
         int f = this.conn.Update(cb);//SE HACE EL CAMBIO DE DISPONIBILIDAD EN LA HABITACION 
-        if(f > 0){//segunn valor de retorno se hizo o no la modificacion
+       // int g = this.conn.Update(et);
+        if(f > 0 ){//segunn valor de retorno se hizo o no la modificacion
             System.out.println("Se modifico la disponibilidad de la habitacion "+NumHab);
         }else{
             System.out.println("No fue posible modificar la disponibilidad de la habitacion "+NumHab);

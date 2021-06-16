@@ -460,49 +460,49 @@ public class P6_Check_Out extends javax.swing.JFrame {
                 System.out.println("Error#1...");
                 band = true;
             }
-            if (band != true) {
-                if (n != 0) {
-                    try {
-                        tipo = this.conn.rs.getString(2);
-                        nper = this.conn.rs.getInt(4);
-                        dias = this.conn.rs.getInt(5);
-                    } catch (SQLException ex) {
-                        System.out.println("Error#1...");
-                    }
-                    oncheck();//activa los jcheckbox
-                    this.jLabelDias.setText(" " + dias + " ");
-                    if ("Sencilla".equals(tipo)) {
-                        if (nper == 1) {
-                            this.jLabelPex.setText(" 0 ");
-                        } else {
-                            int a = nper - 1;
-                            this.jLabelPex.setText(" " + a + " ");
-                        }
-                    }
-                    if ("Doble".equals(tipo)) {
-                        if (nper == 2) {
-                            this.jLabelPex.setText(" 0 ");
-                        } else {
-                            int a = nper - 2;
-                            this.jLabelPex.setText(" " + a + " ");
-                        }
-                    }
-                    if ("Triple".equals(tipo)) {
-                        if (nper == 3) {
-                            this.jLabelPex.setText(" 0 ");
-                        } else {
-                            int a = nper - 3;
-                            this.jLabelPex.setText(" " + a + " ");
-                        }
-                    }
-                    this.jLabel7.setText(" " + tipo + " ");
-                } else {
-                    JOptionPane.showMessageDialog(null, "La habitacion buscada no se encuentra ocupada", "Habitacion no ocupada", JOptionPane.ERROR_MESSAGE);
+            // if (band != true) {
+            if (n != 0) {
+                try {
+                    tipo = this.conn.rs.getString(2);
+                    nper = this.conn.rs.getInt(4);
+                    dias = this.conn.rs.getInt(5);
+                } catch (SQLException ex) {
+                    System.out.println("Error#1...");
                 }
+                oncheck();//activa los jcheckbox
+                this.jLabelDias.setText(" " + dias + " ");
+                if ("Sencilla".equals(tipo)) {
+                    if (nper == 1) {
+                        this.jLabelPex.setText(" 0 ");
+                    } else {
+                        int a = nper - 1;
+                        this.jLabelPex.setText(" " + a + " ");
+                    }
+                }
+                if ("Doble".equals(tipo)) {
+                    if (nper == 2) {
+                        this.jLabelPex.setText(" 0 ");
+                    } else {
+                        int a = nper - 2;
+                        this.jLabelPex.setText(" " + a + " ");
+                    }
+                }
+                if ("Triple".equals(tipo)) {
+                    if (nper == 3) {
+                        this.jLabelPex.setText(" 0 ");
+                    } else {
+                        int a = nper - 3;
+                        this.jLabelPex.setText(" " + a + " ");
+                    }
+                }
+                this.jLabel7.setText(" " + tipo + " ");
             } else {
-                JOptionPane.showMessageDialog(null, "La habitacion es inexistente", "Habitacion no encontrada", JOptionPane.ERROR_MESSAGE);
-
+                JOptionPane.showMessageDialog(null, "La habitacion buscada no se encuentra ocupada", "Habitacion no ocupada", JOptionPane.ERROR_MESSAGE);
             }
+            // } else {
+            //    JOptionPane.showMessageDialog(null, "La habitacion es inexistente", "Habitacion no encontrada", JOptionPane.ERROR_MESSAGE);
+
+            // }
         }
     }//GEN-LAST:event_jButton4ActionPerformed
 
@@ -522,7 +522,8 @@ public class P6_Check_Out extends javax.swing.JFrame {
         // TODO add your handling code here:
         String nom = null, tipo = null, cd = null, ing = null, sal = null, tothosDias;
         int n = 0, nper = 0, dias = 0, hos = 0, nhab = 0, ext = 0;
-        String extC[] = null, costo = null;
+        String extC[] = {"Servicio al cuarto   $0", "Servicio de GYM  $0", "Servicio de lavanderia   $0", "Servicio de SPA  $0", "Servicio de bar $0", "Servicio de tintorería   $0"};
+        String costo = null;
         boolean band = false;
         if (this.jTextFieldNHab.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(null, "No seleccionaste ninguna habitacion", "Numero de habitacion vacio", JOptionPane.ERROR_MESSAGE);
@@ -643,6 +644,7 @@ public class P6_Check_Out extends javax.swing.JFrame {
                 //se genera el PDF_Const
                 this.pdf = new PDF_Const(cadFecha, nom, cd, ing, sal, tipo, costo, dias, tothosDias, ex, extC);
                 try {
+                    System.out.println("*************************************************************");
                     System.out.println("Se esta generando el ticket de pago...");
                     Thread.sleep(4000);
                     new PDF(this.pdf);
@@ -653,6 +655,9 @@ public class P6_Check_Out extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Error en busqueda de habitacion", "Error de habitacion", JOptionPane.ERROR_MESSAGE);
             }
             this.jTextFieldNHab.setText("");
+            this.jLabelDias.setText("");
+            this.jLabelPex.setText("");
+            this.jLabel7.setText("");
         }
     }//GEN-LAST:event_jButton5ActionPerformed
 

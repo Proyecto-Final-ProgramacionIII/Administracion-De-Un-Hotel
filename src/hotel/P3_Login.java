@@ -43,7 +43,7 @@ public class P3_Login extends javax.swing.JFrame {
         imagen.setBounds(0,0,670,383);
         imagen.setIcon(new ImageIcon(icono.getImage().getScaledInstance(imagen.getWidth(),imagen.getHeight(),Image.SCALE_SMOOTH) ));
        
-        imagen1.setBounds(0,0,130,80);
+        imagen1.setBounds(0,0,125,80);
         imagen1.setIcon(new ImageIcon(icono1.getImage().getScaledInstance(imagen1.getWidth(),imagen1.getHeight(),Image.SCALE_SMOOTH) ));
                
         jPanelLogo.add(imagen1);

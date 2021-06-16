@@ -422,8 +422,7 @@ public class P5_Habitaciones extends javax.swing.JFrame {
             String columnas[] = {"Numero de habitacion","Piso","Tipo"};
             jTableHab.setModel(new DefaultTableModel(datos,columnas));
             //System.out.println("tabla lista");
-        }
-        else
+        }else
             JOptionPane.showMessageDialog(this, "No hay habitaciones disponibles de este tipo...");
         }//fin if piso1
         if(this.jRadioButtonSeg.isSelected()){//piso 2
