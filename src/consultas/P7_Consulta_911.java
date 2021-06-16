@@ -199,7 +199,7 @@ public class P7_Consulta_911 extends javax.swing.JFrame {
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         // TODO add your handling code here:
-        //piso1();
+        piso1();
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jLabel1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseEntered
@@ -232,7 +232,7 @@ public class P7_Consulta_911 extends javax.swing.JFrame {
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
         // TODO add your handling code here:
-        //piso2();
+        piso2();
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jMenu2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu2ActionPerformed
@@ -248,7 +248,7 @@ public class P7_Consulta_911 extends javax.swing.JFrame {
 
     private void jMenu2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu2MouseClicked
         // TODO add your handling code here:
-        //eliminar();
+        eliminar();
     }//GEN-LAST:event_jMenu2MouseClicked
 
     private void jMenu3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu3MouseClicked
@@ -305,5 +305,109 @@ public class P7_Consulta_911 extends javax.swing.JFrame {
     private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
 
+    private void piso1() {
+        this.eliminar();
+        String c = "1";
+        String query = "select * from habitaciones where Piso = " + "'" + c + "'" + " and Disponibilidad = " + "'" + 0 + "'";
+        this.conn.Consult(query);
+        int x = 0, num[] = new int[15];
+        try {
+            this.conn.rs.last();
+            x = this.conn.rs.getRow();//numero de hab ocupadas
+            this.conn.rs.first();
+        } catch (SQLException ex) {
+            System.out.println("1");
+            Logger.getLogger(P7_Consulta_9.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        if (x != 0) {
+            Object datos[][] = new Object[x][4];
+            for (int i = 0; i < x; i++) {
+                try {
+                    num[i] = this.conn.rs.getInt(1);//obtengo el numero de habitacion
+                    this.conn.rs.next();
+                } catch (SQLException ex) {
+                    System.out.println("2");
+                    Logger.getLogger(P7_Consulta_9.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            for (int i = 0; i < x; i++) {
+                query = "select * from clientes where NHabitacion = " + "'" + num[i] + "'";//busco en tabla clientes el nuemero de hab
+                this.conn.Consult(query);
+                try {//obtengo los datos y los guardo
+                    datos[i][0] = this.conn.rs.getString(1);
+                    datos[i][2] = this.conn.rs.getString(6);
+                    datos[i][3] = this.conn.rs.getString(7);
+                    datos[i][1] = this.conn.rs.getInt(9);
+                    this.conn.rs.next();
+                } catch (SQLException ex) {
+                    System.out.println("4");
+                    Logger.getLogger(P7_Consulta_911.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+            }
+
+            String cl[] = {"Nombre", "N° habitacion", "Fecha ingreso", "Fecha salida"};
+            jTable1.setModel(new DefaultTableModel(datos, cl));
+
+        } else {
+            JOptionPane.showMessageDialog(null, "Sin habitaciones ocupadas en este piso", "Habitaciones disponible", JOptionPane.INFORMATION_MESSAGE);
+        }
+
+    }
     
+    private void piso2() {this.eliminar();
+        String c = "2";
+        String query = "select * from habitaciones where Piso = " + "'" + c + "'" + " and Disponibilidad = " + "'" + 0 + "'";
+        this.conn.Consult(query);
+        int x = 0, num[] = new int[15];
+        try {
+            this.conn.rs.last();
+            x = this.conn.rs.getRow();//numero de hab ocupadas
+            this.conn.rs.first();
+        } catch (SQLException ex) {
+            System.out.println("1");
+            Logger.getLogger(P7_Consulta_9.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        if (x != 0) {
+            Object datos[][] = new Object[x][4];
+            for (int i = 0; i < x; i++) {
+                try {
+                    num[i] = this.conn.rs.getInt(1);//obtengo el numero de habitacion
+                    this.conn.rs.next();
+                } catch (SQLException ex) {
+                    System.out.println("2");
+                    Logger.getLogger(P7_Consulta_9.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            for (int i = 0; i < x; i++) {
+                query = "select * from clientes where NHabitacion = " + "'" + num[i] + "'";//busco en tabla clientes el nuemero de hab
+                this.conn.Consult(query);
+                try {//obtengo los datos y los guardo
+                    datos[i][0] = this.conn.rs.getString(1);
+                    datos[i][2] = this.conn.rs.getString(6);
+                    datos[i][3] = this.conn.rs.getString(7);
+                    datos[i][1] = this.conn.rs.getInt(9);
+                    this.conn.rs.next();
+                } catch (SQLException ex) {
+                    System.out.println("4");
+                    Logger.getLogger(P7_Consulta_911.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+            }
+
+            String cl[] = {"Nombre", "N° habitacion", "Fecha ingreso", "Fecha salida"};
+            jTable1.setModel(new DefaultTableModel(datos, cl));
+
+        } else {
+            JOptionPane.showMessageDialog(null, "Sin habitaciones ocupadas en este piso", "Habitaciones disponible", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }
+
+    private void eliminar() {
+        DefaultTableModel tb = (DefaultTableModel) this.jTable1.getModel();
+        int a = this.jTable1.getRowCount() - 1;
+        for (int i = a; i >= 0; i--) {
+            tb.removeRow(tb.getRowCount() - 1);
+        }
+    }
 }

@@ -440,6 +440,87 @@ public class P8_Cambio extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
+        if (this.jRadioButtonNom.isSelected()) {//mod nombre
+            String query = "UPDATE clientes SET Nombre = '" + this.jTextFieldNnom.getText().trim() + "' WHERE NHabitacion = " + nAlfa;
+            int x = this.conn.Update(query);
+            if (x == 0) 
+                System.out.println("Error al modificar el nombre");
+        }
+        if (this.jRadioButtoning.isSelected()) {//mod fecha
+            String Ing, Sal;
+            if (this.jRadioButtondias.isSelected()) {
+                SimpleDateFormat dFormat = new SimpleDateFormat("YYYY-MM-dd");
+                Ing = dFormat.format(this.jDateChoosering.getDate());//fechas actulizadas con los dias 
+                Sal = sumarDias((int) this.jSpinnerdias.getValue());
+                
+                String query = "UPDATE clientes SET Dias = '" + (int) this.jSpinnerdias.getValue() + "' WHERE NHabitacion = " + nAlfa;
+                int x = this.conn.Update(query);
+                if (x == 0) 
+                    System.out.println("Error al modificar dias1");
+                
+            } else {
+                SimpleDateFormat dFormat = new SimpleDateFormat("YYYY-MM-dd");
+                Ing = dFormat.format(this.jDateChoosering.getDate());//fechas actulizadas sin dias
+                Sal = sumarDias(di);
+            }
+            String query = "UPDATE clientes SET Ingreso = '" + Ing + "' WHERE NHabitacion = " + nAlfa;
+            int x = this.conn.Update(query);
+            if (x == 0) 
+                System.out.println("Error al modificar fecha ingreso 1");
+            query = "UPDATE clientes SET Salida = '" + Sal + "' WHERE NHabitacion = " + nAlfa;
+            x = this.conn.Update(query);
+            if (x == 0) 
+                System.out.println("Error al modificar fecha salida 1");
+        }
+        if (this.jRadioButtondias.isSelected()){//mod dias
+            String Sal, Ing;
+            if(this.jRadioButtoning.isSelected()){
+                SimpleDateFormat dFormat = new SimpleDateFormat("YYYY-MM-dd");
+                Ing = dFormat.format(this.jDateChoosering.getDate());//fechas actulizadas con los dias 
+                Sal = sumarDias((int) this.jSpinnerdias.getValue());
+            }else{
+                SimpleDateFormat dFormat = new SimpleDateFormat("YYYY-MM-dd");
+                Ing = in;
+                Sal = sumarDias((int) this.jSpinnerdias.getValue(),Ing);
+            }
+            String query = "UPDATE clientes SET Ingreso = '" + Ing + "' WHERE NHabitacion = " + nAlfa;
+            int x = this.conn.Update(query);
+            if (x == 0) 
+                System.out.println("Error al modificar fecha ingreso 2");
+            query = "UPDATE clientes SET Salida = '" + Sal + "' WHERE NHabitacion = " + nAlfa;
+            x = this.conn.Update(query);
+            if (x == 0) 
+                System.out.println("Error al modificar fecha salida 2");
+            
+            query = "UPDATE clientes SET Dias = '" + (int) this.jSpinnerdias.getValue() + "' WHERE NHabitacion = " + nAlfa;
+            x = this.conn.Update(query);
+            if (x == 0) 
+                System.out.println("Error al modificar dias2");
+        }
+        if(this.jRadioButtoncd.isSelected()){
+            String c = (String)this.jComboBox1.getSelectedItem();
+            String query = "UPDATE clientes SET CdOrigen = '" + c + "' WHERE NHabitacion = " + nAlfa;
+            int x = this.conn.Update(query);
+            if (x == 0) 
+                System.out.println("Error al modificar la ciudad");
+        }
+        
+        JOptionPane.showMessageDialog(null, "Los cambios se han guardado correctamente", "Modificacion exitosa", JOptionPane.INFORMATION_MESSAGE);
+        this.jRadioButtonNom.setSelected(false);
+        this.jRadioButtoncd.setSelected(false);
+        this.jRadioButtondias.setSelected(false);
+        this.jRadioButtoning.setSelected(false);
+        this.jTextFieldNOM.setText("");
+        this.jTextFieldNnom.setText("");
+        
+        this.jDateChoosering.setCalendar(null);
+        this.jSpinnerdias.setValue(0);
+        this.jComboBox1.setSelectedIndex(0);
+
+        this.jLabelnom.setText("");
+        this.jLabelSal.setText("");
+        this.jLabelCd.setText("");
+        this.jLabeling.setText("");
         
     }//GEN-LAST:event_jButton3ActionPerformed
 

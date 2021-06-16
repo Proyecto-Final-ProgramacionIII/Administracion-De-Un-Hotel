@@ -279,7 +279,7 @@ public class P7_Consulta_9 extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-       // buscar();
+        buscar();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseEntered
@@ -380,6 +380,75 @@ public class P7_Consulta_9 extends javax.swing.JFrame {
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextField jTextFieldPiso;
     // End of variables declaration//GEN-END:variables
+private void buscar() {
+        String query = "select * from habitaciones where Piso = " + "'" + this.jTextFieldPiso.getText().trim() + "'";
+        this.conn.Consult(query);
+        int x = 0, dis[] = new int[15], tipo[] = new int[15], num[] = new int[15];
+        try {
+            this.conn.rs.last();
+            x = this.conn.rs.getRow();
+            this.conn.rs.first();
+        } catch (SQLException ex) {
+            Logger.getLogger(P7_Consulta_9.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        if (x != 0) {
+            for (int i = 0; i < x; i++) {
+                try {
+                    dis[i] = this.conn.rs.getInt(4);
+                    tipo[i] = this.conn.rs.getInt(3);
+                    num[i] = this.conn.rs.getInt(1);
+                    this.conn.rs.next();
+                } catch (SQLException ex) {
+                    Logger.getLogger(P7_Consulta_9.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            this.jTextArea1.setText("");
+            ArrayList<Integer> Sen = new ArrayList();
+            ArrayList<Integer> Dob = new ArrayList();
+            ArrayList<Integer> Tri = new ArrayList();
 
-    
+            boolean band = false;
+            for (int i = 0; i < 15; i++) {
+                if (dis[i] == 1) {//disponibles
+                    band = true;
+                    if (tipo[i] == 1) //sencillas
+                    {
+                        Sen.add(num[i]);//se agrega el num de hab a la lista
+                    }
+                    if (tipo[i] == 2) //doble
+                    {
+                        Dob.add(num[i]);
+                    }
+                    if (tipo[i] == 3) //triple
+                    {
+                        Tri.add(num[i]);
+                    }
+                }
+            }
+            if (band != false) {
+                this.jTextArea1.append("      Piso: " + this.jTextFieldPiso.getText().trim() + "\n");
+                this.jTextArea1.append("        Sencillas: " + Sen.size() + "\n");
+                Collections.sort(Sen);//ordena la lista 
+                this.jTextArea1.append("        " + Sen + "\n");
+
+                this.jTextArea1.append("        Dobles: " + Dob.size() + "\n");
+                Collections.sort(Dob);//ordena la lista 
+                this.jTextArea1.append("        " + Dob + "\n");
+
+                this.jTextArea1.append("        Triples: " + Tri.size() + "\n");
+                Collections.sort(Tri);//ordena la lista 
+                this.jTextArea1.append("        " + Tri + "\n");
+            } else {
+                this.jTextArea1.setForeground(Color.RED);
+                this.jScrollPane1.setOpaque(false);
+                this.jScrollPane1.getViewport().setOpaque(false);
+                this.jTextArea1.setOpaque(false);
+                this.jTextArea1.append("    No hay ninguna habitacion disponibles en este piso");
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Error al buscar el piso", "Error de piso", JOptionPane.ERROR_MESSAGE);
+        }
+
+    }
+
 }

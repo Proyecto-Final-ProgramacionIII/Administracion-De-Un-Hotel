@@ -31,9 +31,24 @@ public class P7_Consulta_910 extends javax.swing.JFrame {
     MySqlConn conn = new MySqlConn();
     public P7_Consulta_910() {
         initComponents();
-        
+        this.jScrollPane1.setOpaque(false);
+        this.jScrollPane1.getViewport().setOpaque(false);
+        this.jTable1.setOpaque(false);
+        ((DefaultTableCellRenderer)this.jTable1.getDefaultRenderer(Object.class)).setOpaque(false);
+        jTable1.getTableHeader().setFont(new java.awt.Font("Time New Roman", Font.BOLD, 12));
+        jTable1.getTableHeader().repaint();
+        imagen();
+        lista();
     }
+    public void imagen() {
+        ImageIcon icono = new ImageIcon("src/imagenes/galeria/a13.png");
+        JLabel imagen = new JLabel();
+        imagen.setBounds(0, 0, 540, 460);
+        imagen.setIcon(new ImageIcon(icono.getImage().getScaledInstance(imagen.getWidth(), imagen.getHeight(), Image.SCALE_SMOOTH)));
 
+        jPanelFondo.add(imagen);
+
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -244,5 +259,34 @@ public class P7_Consulta_910 extends javax.swing.JFrame {
     private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
 
-    
+    private void lista() {
+        String query = "select * from clientes ORDER BY Nombre ASC";
+       // this.conn.Consult(query);
+        this.conn.Consult(query);
+        int n = 0;
+        try {
+            this.conn.rs.last();//ultima pos de la table
+            n = this.conn.rs.getRow();
+            this.conn.rs.first();
+        } catch (Exception e){
+            System.out.println("Error#1 ...");
+        }
+        if( n != 0){
+            Object datos[][] = new Object[n][2];
+            for (int i = 0; i < n; i++) {
+                try {
+                    datos[i][0] = this.conn.rs.getString(1);
+                    datos[i][1] = this.conn.rs.getInt(9);
+                    this.conn.rs.next();
+                } catch (SQLException ex) {
+                    System.out.println("Error#2 ...");
+                }
+            }
+            String col[] = {"Nombre","Numero de habitacion"};
+            this.jTable1.setModel(new DefaultTableModel(datos,col));
+            
+        }else{
+            JOptionPane.showMessageDialog(null,"No hay ningun huésped registrado","Sin registro de huésped",JOptionPane.WARNING_MESSAGE);
+        }
+    }
 }
