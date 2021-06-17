@@ -430,7 +430,7 @@ public class P7_Consulta_1 extends javax.swing.JFrame {
     private void audio() {
         
         try {
-            audio.open(new File("src/audio/audio.wav"));
+            audio.open(new File("src/audio/AUDIOBOB.wav"));
         } catch (BasicPlayerException ex) {
             System.out.println("Error audio");
             Logger.getLogger(P7_Consulta_1.class.getName()).log(Level.SEVERE, null, ex);

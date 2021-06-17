@@ -103,7 +103,7 @@ public class PDF {
         tit.setAlignment(Element.ALIGN_CENTER);
         documento.add(new Paragraph("Total a pagar sin cargos extra: "+totp, FontFactory.getFont("Times New Roman", 12, Font.BOLD, BaseColor.BLACK)));//tit variable paragraph
         tit.setAlignment(50);
-        documento.add(new Paragraph("Total a pagar con cargos extra: "+textra, FontFactory.getFont("Times New Roman", 12, Font.BOLD, BaseColor.BLACK)));//tit variable paragraph
+        documento.add(new Paragraph("Total a pagar con cargos extra: "+(Integer.parseInt(textra)+Integer.parseInt(totp)), FontFactory.getFont("Times New Roman", 12, Font.BOLD, BaseColor.BLACK)));//tit variable paragraph
         tit.setAlignment(Element.ALIGN_CENTER);
         
         if(band == false){
@@ -131,7 +131,7 @@ public class PDF {
         tit.setAlignment(Element.ALIGN_CENTER);
         documento.add(new Paragraph(""));//tit variable paragraph
         tit.setAlignment(Element.ALIGN_CENTER);
-        documento.add(new Paragraph("Salida completada"+textra, FontFactory.getFont("Times New Roman", 12, Font.BOLD, BaseColor.BLACK)));//tit variable paragraph
+        documento.add(new Paragraph("Salida completada", FontFactory.getFont("Times New Roman", 12, Font.BOLD, BaseColor.BLACK)));//tit variable paragraph
         tit.setAlignment(Element.ALIGN_CENTER);
         documento.close();
         System.out.println("**************************************************");

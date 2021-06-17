@@ -276,6 +276,7 @@ public class P3_Login extends javax.swing.JFrame {
             char[] passw = this.jPasswordFieldLogin.getPassword();
             contra = new String(passw);
             String contraseñaencriptada = DigestUtils.md5Hex(contra);
+        //compara 
             if (contraseñaMySql.equals(contraseñaencriptada)){
                 JOptionPane.showMessageDialog(this, "Bienvenido "+
                         this.conn.rs.getString(1)+" al sistema");

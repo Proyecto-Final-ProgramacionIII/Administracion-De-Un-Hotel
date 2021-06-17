@@ -5,10 +5,16 @@
  */
 package hotel;
 
+import consultas.P7_Consulta_1;
 import java.awt.Color;
 import java.awt.Image;
+import java.io.File;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javazoom.jlgui.basicplayer.BasicPlayer;
+import javazoom.jlgui.basicplayer.BasicPlayerException;
 
 /**
  *
@@ -19,9 +25,11 @@ public class P2_Sistema extends javax.swing.JFrame {
     /**
      * Creates new form P2_Sistema
      */
+    BasicPlayer audio = new BasicPlayer();
     public P2_Sistema() {
         initComponents();
         imagen();
+        audio();
     }
     public void imagen(){
         ImageIcon icono = new ImageIcon("src/imagenes/Sistema.png");
@@ -216,13 +224,23 @@ public class P2_Sistema extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+        try {
+            // TODO add your handling code here:
+            audio.stop();
+        } catch (BasicPlayerException ex) {
+            Logger.getLogger(P2_Sistema.class.getName()).log(Level.SEVERE, null, ex);
+        }
         this.dispose();
         new P1_Portada().setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
+        try {
+            // TODO add your handling code here:
+            audio.stop();
+        } catch (BasicPlayerException ex) {
+            Logger.getLogger(P2_Sistema.class.getName()).log(Level.SEVERE, null, ex);
+        }
         this.dispose();
         new P3_Login().setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
@@ -323,4 +341,21 @@ public class P2_Sistema extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanelFondo;
     // End of variables declaration//GEN-END:variables
+    private void audio() {
+        
+        try {
+            audio.open(new File("src/audio/AUDIOBOB.wav"));
+        } catch (BasicPlayerException ex) {
+            System.out.println("Error audio");
+            Logger.getLogger(P7_Consulta_1.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try {
+            audio.play();
+        } catch (BasicPlayerException ex) {
+            System.out.println("play");
+            Logger.getLogger(P7_Consulta_1.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+
+    }
 }
