@@ -460,7 +460,7 @@ public class P6_Check_Out extends javax.swing.JFrame {
                 System.out.println("Error#1...");
                 band = true;
             }
-            // if (band != true) {
+           if (band != true) {
             if (n != 0) {
                 try {
                     tipo = this.conn.rs.getString(2);
@@ -499,10 +499,10 @@ public class P6_Check_Out extends javax.swing.JFrame {
             } else {
                 JOptionPane.showMessageDialog(null, "La habitacion buscada no se encuentra ocupada", "Habitacion no ocupada", JOptionPane.ERROR_MESSAGE);
             }
-            // } else {
-            //    JOptionPane.showMessageDialog(null, "La habitacion es inexistente", "Habitacion no encontrada", JOptionPane.ERROR_MESSAGE);
+            } else {
+               JOptionPane.showMessageDialog(null, "La habitacion es inexistente", "Habitacion no encontrada", JOptionPane.ERROR_MESSAGE);
 
-            // }
+            }
         }
     }//GEN-LAST:event_jButton4ActionPerformed
 
@@ -593,7 +593,7 @@ public class P6_Check_Out extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(this, "El pago no se ha podido efectuar", "Error de pago", JOptionPane.ERROR_MESSAGE);
                 }
 
-                //Modificacion de disponibilidad de habitacion a DISPONIBLE
+            //Modificacion de disponibilidad de habitacion a DISPONIBLE
                 String c = "1";//cadena que cambia la dispo de la hab
                 String cb = "UPDATE habitaciones SET Disponibilidad = '" + c + "' WHERE Numerodehabitacion = " + nhab;//Instruccion SQL de cambio
 
@@ -622,7 +622,7 @@ public class P6_Check_Out extends javax.swing.JFrame {
                         System.out.println("Error#3 ...");
                     }
                     ingreso = ingreso + (Integer.parseInt(tothosDias) + ext);//lo que ya tenia el hotel mas lo que pago este cliente
-                    //Actualiza ingresos del hotel
+                //Actualiza ingresos del hotel
                     query = "UPDATE ingresoshotel set ingresos = '" + Integer.toString(ingreso) + "' WHERE Llave = " + 1;//se actualiza
                     int g = this.conn.Update(query);//SE HACE EL CAMBIO DE DISPONIBILIDAD EN LA HABITACION 
                     if (g > 0)//segunn valor de retorno se hizo o no la modificacion

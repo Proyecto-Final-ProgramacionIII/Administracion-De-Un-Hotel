@@ -423,6 +423,7 @@ public class P7_Consulta_3 extends javax.swing.JFrame {
                 }
             }
             porciento = ((acum * 100) / 9);//el porcentaje del %1oo de hab sencillas
+            
             DefaultPieDataset dat = new DefaultPieDataset();
             dat.setValue(porciento+" % ", porciento);
             dat.setValue("Disponible", 100 - porciento);

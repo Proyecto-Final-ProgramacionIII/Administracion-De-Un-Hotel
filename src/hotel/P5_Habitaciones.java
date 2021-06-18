@@ -372,6 +372,7 @@ public class P5_Habitaciones extends javax.swing.JFrame {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
        String query = null;
+       int cont = 0;
         if(this.jRadioButtonP.isSelected()){//piso 1
             piso = 1;
             this.eliminar();
@@ -423,7 +424,11 @@ public class P5_Habitaciones extends javax.swing.JFrame {
             jTableHab.setModel(new DefaultTableModel(datos,columnas));
             //System.out.println("tabla lista");
         }else
-            JOptionPane.showMessageDialog(this, "No hay habitaciones disponibles de este tipo...");
+            {
+                JOptionPane.showMessageDialog(this, "No hay habitaciones disponibles de este tipo...");
+                cont = 1;
+            }
+            
         }//fin if piso1
         if(this.jRadioButtonSeg.isSelected()){//piso 2
             piso = 1;
@@ -474,7 +479,11 @@ public class P5_Habitaciones extends javax.swing.JFrame {
             //System.out.println("tabla lista");
         }
         else
-            JOptionPane.showMessageDialog(this, "No hay habitaciones disponibles de este tipo...");
+            {
+                JOptionPane.showMessageDialog(this, "No hay habitaciones disponibles de este tipo...");
+                cont++;
+            }
+            
         }
         if(piso == 0){//sin selecion de piso
             this.eliminar();
@@ -517,8 +526,13 @@ public class P5_Habitaciones extends javax.swing.JFrame {
             jTableHab.setModel(new DefaultTableModel(datos,columnas));
             //System.out.println("tabla lista");
             }
-            else
+            else{
                 JOptionPane.showMessageDialog(this, "No hay habitaciones disponibles de este tipo...");
+                if(cont == 2){
+                    JOptionPane.showMessageDialog(this, "El hotel se encuentar lleno en este momento :(...");
+                }
+            }
+                
             
         }
         
